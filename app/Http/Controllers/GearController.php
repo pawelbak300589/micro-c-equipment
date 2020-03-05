@@ -21,6 +21,8 @@ class GearController extends Controller
     public function create(Request $request)
     {
         $this->validate($request, [
+            'brand_id' => 'required',
+            'category_id' => 'required',
             'name' => 'required|max:255',
         ]);
 
@@ -32,6 +34,8 @@ class GearController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
+            'brand_id' => 'required',
+            'category_id' => 'required',
             'name' => 'required|max:255',
         ]);
 

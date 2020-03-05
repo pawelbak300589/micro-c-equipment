@@ -22,7 +22,6 @@ class BrandController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'description' => 'required',
             'website' => 'required|max:255'
         ]);
 
@@ -35,7 +34,6 @@ class BrandController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'description' => 'required',
             'website' => 'required|max:255'
         ]);
 

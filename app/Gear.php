@@ -13,7 +13,7 @@ class Gear extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description'
+        'brand_id', 'category_id', 'name', 'description'
     ];
 
     /**

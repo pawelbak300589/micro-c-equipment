@@ -15,12 +15,14 @@ $router->get('/', function () use ($router)
 {
     return $router->app->version();
 });
-
-$router->group(['prefix' => 'api'], function () use ($router)
+$router->group(['middleware' => 'auth'], function () use ($router)
 {
-    $router->get('brands', ['uses' => 'BrandController@showAllBrands']);
-    $router->get('brands/{id}', ['uses' => 'BrandController@showOneBrand']);
-    $router->post('brands', ['uses' => 'BrandController@create']);
-    $router->delete('brands/{id}', ['uses' => 'BrandController@delete']);
-    $router->put('brands/{id}', ['uses' => 'BrandController@update']);
+    $router->group(['prefix' => 'api'], function () use ($router)
+    {
+        $router->get('brands', ['uses' => 'BrandController@showAllBrands']);
+        $router->get('brands/{id}', ['uses' => 'BrandController@showOneBrand']);
+        $router->post('brands', ['uses' => 'BrandController@create']);
+        $router->delete('brands/{id}', ['uses' => 'BrandController@delete']);
+        $router->put('brands/{id}', ['uses' => 'BrandController@update']);
+    });
 });

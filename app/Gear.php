@@ -22,4 +22,14 @@ class Gear extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

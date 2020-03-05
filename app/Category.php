@@ -22,4 +22,9 @@ class Category extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }

@@ -26,9 +26,9 @@ class CategoryController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        $author = Category::create($request->all());
+        $category = Category::create($request->all());
 
-        return response()->json($author, 201);
+        return response()->json($category, 201);
     }
 
     public function update($id, Request $request)
@@ -39,10 +39,10 @@ class CategoryController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        $author = Category::findOrFail($id);
-        $author->update($request->all());
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
 
-        return response()->json($author, 200);
+        return response()->json($category, 200);
     }
 
     public function delete($id)

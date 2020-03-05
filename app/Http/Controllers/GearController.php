@@ -26,9 +26,9 @@ class GearController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        $author = Gear::create($request->all());
+        $gear = Gear::create($request->all());
 
-        return response()->json($author, 201);
+        return response()->json($gear, 201);
     }
 
     public function update($id, Request $request)
@@ -39,10 +39,10 @@ class GearController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        $author = Gear::findOrFail($id);
-        $author->update($request->all());
+        $gear = Gear::findOrFail($id);
+        $gear->update($request->all());
 
-        return response()->json($author, 200);
+        return response()->json($gear, 200);
     }
 
     public function delete($id)

@@ -25,9 +25,9 @@ class BrandController extends Controller
             'website' => 'required|max:255'
         ]);
 
-        $author = Brand::create($request->all());
+        $brand = Brand::create($request->all());
 
-        return response()->json($author, 201);
+        return response()->json($brand, 201);
     }
 
     public function update($id, Request $request)
@@ -37,10 +37,10 @@ class BrandController extends Controller
             'website' => 'required|max:255'
         ]);
 
-        $author = Brand::findOrFail($id);
-        $author->update($request->all());
+        $brand = Brand::findOrFail($id);
+        $brand->update($request->all());
 
-        return response()->json($author, 200);
+        return response()->json($brand, 200);
     }
 
     public function delete($id)

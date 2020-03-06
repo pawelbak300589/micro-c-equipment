@@ -3,22 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BrandController extends Controller
 {
+    use ApiResponse;
 
     public function showAllBrands()
     {
-        return response()->json(Brand::all());
+        return $this->successResponse(Brand::all());
     }
 
     public function showOneBrand($id)
     {
-        return response()->json(Brand::find($id));
+        return $this->successResponse(Brand::find($id));
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|max:255',
@@ -27,7 +30,7 @@ class BrandController extends Controller
 
         $brand = Brand::create($request->all());
 
-        return response()->json($brand, 201);
+        return $this->successResponse($brand, Response::HTTP_CREATED);
     }
 
     public function update($id, Request $request)
@@ -40,12 +43,13 @@ class BrandController extends Controller
         $brand = Brand::findOrFail($id);
         $brand->update($request->all());
 
-        return response()->json($brand, 200);
+        return $this->successResponse($brand);
     }
 
     public function delete($id)
     {
-        Brand::findOrFail($id)->delete();
-        return response('Deleted Successfully', 200);
+        $brand = Brand::findOrFail($id);
+        $brand->delete();
+        return $this->successResponse($brand);
     }
 }

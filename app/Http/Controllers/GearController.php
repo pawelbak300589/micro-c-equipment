@@ -3,19 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Gear;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class GearController extends Controller
 {
+    use ApiResponse;
 
     public function showAllGears()
     {
-        return response()->json(Gear::all());
+        return $this->successResponse(Gear::all());
     }
 
     public function showOneGear($id)
     {
-        return response()->json(Gear::find($id));
+        return $this->successResponse(Gear::find($id));
     }
 
     public function create(Request $request)
@@ -28,7 +31,7 @@ class GearController extends Controller
 
         $gear = Gear::create($request->all());
 
-        return response()->json($gear, 201);
+        return $this->successResponse($gear, Response::HTTP_CREATED);
     }
 
     public function update($id, Request $request)
@@ -42,12 +45,13 @@ class GearController extends Controller
         $gear = Gear::findOrFail($id);
         $gear->update($request->all());
 
-        return response()->json($gear, 200);
+        return $this->successResponse($gear);
     }
 
     public function delete($id)
     {
-        Gear::findOrFail($id)->delete();
-        return response('Deleted Successfully', 200);
+        $gear = Gear::findOrFail($id);
+        $gear->delete();
+        return $this->successResponse($gear);
     }
 }

@@ -3,19 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
+    use ApiResponse;
 
     public function showAllCategories()
     {
-        return response()->json(Category::all());
+        return $this->successResponse(Category::all());
     }
 
     public function showOneCategory($id)
     {
-        return response()->json(Category::find($id));
+        return $this->successResponse(Category::find($id));
     }
 
     public function create(Request $request)
@@ -28,7 +31,7 @@ class CategoryController extends Controller
 
         $category = Category::create($request->all());
 
-        return response()->json($category, 201);
+        return $this->successResponse($category, Response::HTTP_CREATED);
     }
 
     public function update($id, Request $request)
@@ -42,12 +45,13 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->update($request->all());
 
-        return response()->json($category, 200);
+        return $this->successResponse($category);
     }
 
     public function delete($id)
     {
-        Category::findOrFail($id)->delete();
-        return response('Deleted Successfully', 200);
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return $this->successResponse($category);
     }
 }

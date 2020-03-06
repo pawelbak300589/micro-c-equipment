@@ -27,4 +27,9 @@ class Category extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+
+    public function gears()
+    {
+        return $this->hasMany(Gear::class);
+    }
 }

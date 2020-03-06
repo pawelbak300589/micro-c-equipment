@@ -22,4 +22,14 @@ class Brand extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function gears()
+    {
+        return $this->hasMany(Gear::class);
+    }
 }

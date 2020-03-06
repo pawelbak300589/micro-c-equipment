@@ -15,8 +15,9 @@ $router->get('/', function () use ($router)
 {
     return $router->app->version();
 });
-//$router->group(['middleware' => 'auth'], function () use ($router)
-//{
+
+$router->group(['middleware' => 'auth'], function () use ($router)
+{
     $router->group(['prefix' => 'api'], function () use ($router)
     {
         $router->get('brands', ['uses' => 'BrandController@showAllBrands']);
@@ -37,4 +38,4 @@ $router->get('/', function () use ($router)
         $router->delete('categories/{id}', ['uses' => 'CategoryController@delete']);
         $router->put('categories/{id}', ['uses' => 'CategoryController@update']);
     });
-//});
+});

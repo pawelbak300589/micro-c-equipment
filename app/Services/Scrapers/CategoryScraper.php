@@ -7,6 +7,8 @@ namespace App\Services\Scrapers;
 
 use App\Category;
 use App\Repositories\CategoryRepository;
+use App\Services\Scrapers\Categories\RockRun;
+use App\Services\Scrapers\Categories\TrekkInn;
 
 /**
  * Class CategoryScraper
@@ -19,7 +21,8 @@ class CategoryScraper extends ScraperAbstract
         parent::__construct();
         $this->repository = new CategoryRepository(new Category());
         $this->websites = [
-
+            RockRun::class,
+            TrekkInn::class,
         ];
     }
 }

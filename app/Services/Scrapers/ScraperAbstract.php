@@ -29,10 +29,10 @@ abstract class ScraperAbstract implements ScraperInterface
 
         foreach ($scrapedData as $data)
         {
-            if (!$this->repository->existByName($data['name']))
-            {
-                $this->repository->create($data);
-            }
+//            if (!$this->repository->existByName($data['name'])) // TODO: znajdz pomysl na lepsza filtracje... i czy w ogole musze filtrowac? no i jak polaczyc Brand z Category i Gear?
+//            {
+            $this->repository->create($data);
+//            }
         }
     }
 }

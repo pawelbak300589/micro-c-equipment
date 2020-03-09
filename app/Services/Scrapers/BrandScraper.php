@@ -7,7 +7,9 @@ namespace App\Services\Scrapers;
 
 use App\Brand;
 use App\Repositories\BrandRepository;
+use App\Services\Scrapers\Brands\AlpinTrek;
 use App\Services\Scrapers\Brands\RockRun;
+use App\Services\Scrapers\Brands\TrekkInn;
 use App\Services\Scrapers\Brands\WeighMyRack;
 use App\Services\Scrapers\Brands\ClimbersShop;
 
@@ -22,9 +24,11 @@ class BrandScraper extends ScraperAbstract
         parent::__construct();
         $this->repository = new BrandRepository(new Brand());
         $this->websites = [
-            WeighMyRack::class,
+//            AlpinTrek::class,
             RockRun::class,
-//        ClimbersShop::class,
+            TrekkInn::class,
+            ClimbersShop::class,
+            WeighMyRack::class,
         ];
     }
 }

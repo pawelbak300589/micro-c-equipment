@@ -3,6 +3,8 @@
 namespace App\Console;
 
 use App\Console\Commands\ScrapeBrands;
+use App\Console\Commands\ScrapeCategories;
+use App\Console\Commands\ScrapeGears;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +16,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        ScrapeBrands::class
+        ScrapeBrands::class,
+        ScrapeCategories::class,
+        ScrapeGears::class,
     ];
 
     /**
@@ -25,6 +29,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('brands:scrape')->twiceDaily();
+        $schedule->command('scrape:brands')->monthly();
+        $schedule->command('scrape:categories')->weekly();
+        $schedule->command('scrape:gears')->weekly();
     }
 }

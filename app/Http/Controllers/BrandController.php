@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Repositories\BrandRepository;
+use App\Services\Scrapers\Brands\ClimbersShop;
+use App\Services\Scrapers\Brands\RockRun;
+use App\Services\Scrapers\Brands\WeighMyRack;
+use App\Services\Scrapers\BrandScraper;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -51,5 +56,20 @@ class BrandController extends Controller
         $brand = Brand::findOrFail($id);
         $brand->delete();
         return $this->successResponse($brand);
+    }
+
+    public function test()
+    {
+//        $test = new WeighMyRack();
+//        $test = new ClimbersShop();
+        $test = new RockRun();
+        dd($test->getData()[0]);
+
+//        ini_set('max_execution_time', 300);
+//        $test = new BrandScraper();
+//        dd($test->scrapeAll());
+
+//        $repository = new BrandRepository(new Brand());
+//        dd($repository->create(['name' => 'Test', 'website' => 'test website']));
     }
 }

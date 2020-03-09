@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Scrapers\WebsiteScraper;
+use App\Services\Scrapers\BrandScraper;
 use Illuminate\Console\Command;
 
 class ScrapeBrands extends Command
@@ -12,7 +12,7 @@ class ScrapeBrands extends Command
      *
      * @var string
      */
-    protected $signature = 'brands:scrape {website}';
+    protected $signature = 'scrape:brands {--website=}';
 
     /**
      * The console command description.
@@ -38,8 +38,16 @@ class ScrapeBrands extends Command
      */
     public function handle()
     {
-        $this->argument('website');
-        $scraper = new WebsiteScraper();
-        $scraper->scrapeAll('brands');
+        $scraper = new BrandScraper();
+        $scraper->scrapeAll();
+
+//        if ($this->argument('website'))
+//        {
+////            $scraper->scrapeAll(); // TODO: create scrape just for one website $scraper->scrape();
+//        }
+//        else
+//        {
+//            $scraper->scrapeAll();
+//        }
     }
 }

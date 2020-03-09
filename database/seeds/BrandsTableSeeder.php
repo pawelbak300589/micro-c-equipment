@@ -12,10 +12,5 @@ class BrandsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('brands')->insert([
-            'name' => 'Petzl',
-            'description' => 'Petzl description',
-            'website' => 'https://www.petzl.com/GB/en/Sport',
-        ]);
     }
 }

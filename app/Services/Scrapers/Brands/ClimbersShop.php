@@ -2,18 +2,14 @@
 
 namespace App\Services\Scrapers\Brands;
 
-use App\Services\Scrapers\WebsiteScraperInterface;
-use Goutte\Client;
+use App\Services\Scrapers\WebsiteScraperAbstract;
 
-class ClimbersShop implements WebsiteScraperInterface
+class ClimbersShop extends WebsiteScraperAbstract
 {
-    private $url = 'https://www.climbers-shop.com/pages/brands/';
-    private $crawler;
-
     public function __construct()
     {
-        $goutteClient = new Client();
-        $this->crawler = $goutteClient->request('GET', $this->url);
+        $this->url = 'https://www.climbers-shop.com/pages/brands/';
+        parent::__construct();
     }
 
     public function getData()
@@ -33,7 +29,8 @@ class ClimbersShop implements WebsiteScraperInterface
             foreach ($websiteNames as $index => $name)
             {
                 $data[$index]['name'] = $websiteNames[$index];
-                $data[$index]['website'] = $websiteUrls[$index];
+                $data[$index]['url'] = $websiteUrls[$index];
+                $data[$index]['website'] = 'ClimbersShop';
             }
 
             return $data;

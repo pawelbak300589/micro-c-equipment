@@ -2,18 +2,14 @@
 
 namespace App\Services\Scrapers\Brands;
 
-use App\Services\Scrapers\WebsiteScraperInterface;
-use Goutte\Client;
+use App\Services\Scrapers\WebsiteScraperAbstract;
 
-class RockRun implements WebsiteScraperInterface
+class RockRun extends WebsiteScraperAbstract
 {
-    private $url = 'https://rockrun.com/collections/all-brands';
-    private $crawler;
-
     public function __construct()
     {
-        $goutteClient = new Client();
-        $this->crawler = $goutteClient->request('GET', $this->url);
+        $this->url = 'https://rockrun.com/collections/all-brands';
+        parent::__construct();
     }
 
     public function getData()
@@ -33,7 +29,8 @@ class RockRun implements WebsiteScraperInterface
             foreach ($websiteNames as $index => $name)
             {
                 $data[$index]['name'] = $websiteNames[$index];
-                $data[$index]['website'] = $websiteUrls[$index];
+                $data[$index]['url'] = $websiteUrls[$index];
+                $data[$index]['website'] = 'RockRun';
             }
 
             return $data;

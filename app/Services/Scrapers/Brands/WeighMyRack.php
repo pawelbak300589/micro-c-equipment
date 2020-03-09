@@ -2,18 +2,14 @@
 
 namespace App\Services\Scrapers\Brands;
 
-use App\Services\Scrapers\WebsiteScraperInterface;
-use Goutte\Client;
+use App\Services\Scrapers\WebsiteScraperAbstract;
 
-class WeighMyRack implements WebsiteScraperInterface
+class WeighMyRack extends WebsiteScraperAbstract
 {
-    private $url = 'https://blog.weighmyrack.com/who-makes-climbing-gear-we-list-all-the-climbing-brands/';
-    private $crawler;
-
     public function __construct()
     {
-        $goutteClient = new Client();
-        $this->crawler = $goutteClient->request('GET', $this->url);
+        $this->url = 'https://blog.weighmyrack.com/who-makes-climbing-gear-we-list-all-the-climbing-brands/';
+        parent::__construct();
     }
 
     public function getData()
@@ -37,7 +33,8 @@ class WeighMyRack implements WebsiteScraperInterface
             foreach ($websiteNames as $index => $name)
             {
                 $data[$index]['name'] = $websiteNames[$index];
-                $data[$index]['website'] = $websiteUrls[$index];
+                $data[$index]['url'] = $websiteUrls[$index];
+                $data[$index]['website'] = 'WeighMyRack';
             }
 
             return $data;

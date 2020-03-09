@@ -13,7 +13,7 @@ class Brand extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'website'
+        'name', 'url', 'website'
     ];
 
     /**

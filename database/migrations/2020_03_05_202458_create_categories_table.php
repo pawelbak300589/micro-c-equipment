@@ -18,7 +18,8 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('brand_id');
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->string('url');
+            $table->string('website');
             $table->timestamps();
 
             $table->foreign('brand_id')->references('id')->on('brands');

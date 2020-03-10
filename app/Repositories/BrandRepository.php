@@ -18,11 +18,6 @@ class BrandRepository
         return !empty($this->model->where('name', $name)->first());
     }
 
-    public function existByWebsiteUrl(string $website)
-    {
-        return !empty($this->model->where('website', $website)->first());
-    }
-
     public function create(array $data)
     {
         return $this->model->create($data);

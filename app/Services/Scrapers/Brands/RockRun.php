@@ -30,7 +30,7 @@ class RockRun extends WebsiteScraperAbstract
             {
                 $data[$index]['name'] = $websiteNames[$index];
                 $data[$index]['url'] = $websiteUrls[$index];
-                $data[$index]['website'] = 'RockRun';
+                $data[$index]['website_id'] = $this->websiteId;
             }
 
             return $data;

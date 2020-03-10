@@ -13,7 +13,7 @@ class Gear extends Model
      * @var array
      */
     protected $fillable = [
-        'brand_id', 'category_id', 'name', 'url', 'website'
+        'website_id', 'name', 'url'
     ];
 
     /**
@@ -23,13 +23,8 @@ class Gear extends Model
      */
     protected $hidden = [];
 
-    public function brand()
+    public function website()
     {
-        return $this->belongsTo(Brand::class);
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Website::class);
     }
 }

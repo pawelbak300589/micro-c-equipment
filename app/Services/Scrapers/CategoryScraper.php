@@ -22,9 +22,9 @@ class CategoryScraper extends ScraperAbstract
         parent::__construct();
         $this->repository = new CategoryRepository(new Category());
         $this->websites = [
+            AlpinTrek::class,
             RockRun::class,
             TrekkInn::class,
-            AlpinTrek::class,
         ];
     }
 }

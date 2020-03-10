@@ -34,7 +34,7 @@ class WeighMyRack extends WebsiteScraperAbstract
             {
                 $data[$index]['name'] = $websiteNames[$index];
                 $data[$index]['url'] = $websiteUrls[$index];
-                $data[$index]['website'] = 'WeighMyRack';
+                $data[$index]['website_id'] = $this->websiteId;
             }
 
             return $data;

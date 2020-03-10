@@ -13,7 +13,7 @@ class Brand extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'url', 'website'
+        'website_id', 'name', 'url'
     ];
 
     /**
@@ -23,13 +23,8 @@ class Brand extends Model
      */
     protected $hidden = [];
 
-    public function categories()
+    public function website()
     {
-        return $this->hasMany(Category::class);
-    }
-
-    public function gears()
-    {
-        return $this->hasMany(Gear::class);
+        return $this->belongsTo(Website::class);
     }
 }

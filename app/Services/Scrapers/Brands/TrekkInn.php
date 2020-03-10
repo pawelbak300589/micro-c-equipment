@@ -30,7 +30,7 @@ class TrekkInn extends WebsiteScraperAbstract
             {
                 $data[$index]['name'] = $websiteNames[$index];
                 $data[$index]['url'] = $websiteUrls[$index];
-                $data[$index]['website'] = 'TrekkInn';
+                $data[$index]['website_id'] = $this->websiteId;
             }
 
             return $data;

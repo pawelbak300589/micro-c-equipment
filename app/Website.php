@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Website extends Model
 {
 
     /**
@@ -13,7 +13,7 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'website_id', 'name', 'url'
+        'name', 'url'
     ];
 
     /**
@@ -23,8 +23,18 @@ class Category extends Model
      */
     protected $hidden = [];
 
-    public function website()
+    public function brands()
     {
-        return $this->belongsTo(Website::class);
+        return $this->hasMany(Brand::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function gears()
+    {
+        return $this->hasMany(Gear::class);
     }
 }

@@ -31,7 +31,7 @@ class AlpinTrek extends WebsiteScraperAbstract
             {
                 $data[$globalIndex]['name'] = $websiteMainNames[$index];
                 $data[$globalIndex]['url'] = $websiteMainUrls[$index];
-                $data[$globalIndex]['website'] = 'AlpinTrek';
+                $data[$globalIndex]['website_id'] = $this->websiteId;
                 $globalIndex++;
             }
 
@@ -48,7 +48,7 @@ class AlpinTrek extends WebsiteScraperAbstract
             {
                 $data[$globalIndex]['name'] = $websiteNames[$index];
                 $data[$globalIndex]['url'] = $websiteUrls[$index];
-                $data[$globalIndex]['website'] = 'AlpinTrek';
+                $data[$globalIndex]['website_id'] = $this->websiteId;
                 $globalIndex++;
             }
 

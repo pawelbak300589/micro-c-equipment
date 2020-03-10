@@ -16,13 +16,12 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('website_id');
             $table->string('name');
             $table->string('url');
-            $table->string('website');
             $table->timestamps();
 
-            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->foreign('website_id')->references('id')->on('websites');
         });
     }
 

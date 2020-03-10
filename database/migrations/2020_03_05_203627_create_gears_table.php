@@ -16,15 +16,12 @@ class CreateGearsTable extends Migration
         Schema::create('gears', function (Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('brand_id');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('website_id');
             $table->string('name');
             $table->string('url');
-            $table->string('website');
             $table->timestamps();
 
-            $table->foreign('brand_id')->references('id')->on('brands');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('website_id')->references('id')->on('websites');
         });
     }
 

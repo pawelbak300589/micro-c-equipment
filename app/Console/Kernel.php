@@ -29,8 +29,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('scrape:brands')->monthly();
-        $schedule->command('scrape:categories')->weekly();
-        $schedule->command('scrape:gears')->weekly();
+//        $schedule->command('scrape:brands')->monthly(); // TODO: set some checks to not duplicate brands before you'll use it as a crone job
+//        $schedule->command('scrape:categories')->weekly(); // TODO: set some checks to not duplicate categories before you'll use it as a crone job
+//        $schedule->command('scrape:gears')->weekly(); // TODO: set some checks to not duplicate gears before you'll use it as a crone job
     }
 }

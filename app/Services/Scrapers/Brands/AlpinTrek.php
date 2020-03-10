@@ -14,9 +14,7 @@ class AlpinTrek extends WebsiteScraperAbstract
 
     public function getData()
     {
-        dd($this->crawler->filter('div#bfRoot section#main-section div#list_manufacturer'));
-
-        return $this->crawler->filter('div#bfRoot section#main-section div#list_manufacturer')->each(function ($node)
+        return $this->crawler->filter('div#list_manufacturer')->each(function ($node)
         {
             $data = [];
             $websiteNames = $node->filter('li.manufacturer-listitem div.manufacturer div.title a')->each(function ($field)

@@ -7,6 +7,7 @@ namespace App\Services\Scrapers;
 
 use App\Category;
 use App\Repositories\CategoryRepository;
+use App\Services\Scrapers\Categories\AlpinTrek;
 use App\Services\Scrapers\Categories\RockRun;
 use App\Services\Scrapers\Categories\TrekkInn;
 
@@ -23,6 +24,7 @@ class CategoryScraper extends ScraperAbstract
         $this->websites = [
             RockRun::class,
             TrekkInn::class,
+            AlpinTrek::class,
         ];
     }
 }

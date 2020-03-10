@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Brand;
 use App\Repositories\BrandRepository;
 use App\Services\Scrapers\Brands\AlpinTrek;
+use App\Services\Scrapers\Categories\AlpinTrek as AlpinTrekCategories;
 use App\Services\Scrapers\Brands\ClimbersShop;
 use App\Services\Scrapers\Brands\RockRun;
 use App\Services\Scrapers\Categories\RockRun as RockRunCategories;
@@ -68,7 +69,8 @@ class BrandController extends Controller
 //        $test = new RockRun();
 //        $test = new RockRunCategories();
 //        $test = new TrekkInn();
-        $test = new AlpinTrek();
+//        $test = new AlpinTrek();
+        $test = new AlpinTrekCategories();
         dd($test->getData()[0]);
 
 //        ini_set('max_execution_time', 300);

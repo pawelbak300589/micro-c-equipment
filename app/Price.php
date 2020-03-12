@@ -13,7 +13,7 @@ class Price extends Model
      * @var array
      */
     protected $fillable = [
-        'website_id', 'gear_id', 'price'
+        'website_id', 'gear_id', 'price', 'sale_from', 'type'
     ];
 
     /**

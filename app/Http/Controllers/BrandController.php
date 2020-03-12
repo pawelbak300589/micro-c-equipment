@@ -12,6 +12,8 @@ use App\Services\Scrapers\Categories\RockRun as RockRunCategories;
 use App\Services\Scrapers\Brands\WeighMyRack;
 use App\Services\Scrapers\BrandScraper;
 use App\Services\Scrapers\Categories\TrekkInn;
+use App\Services\Scrapers\Gears\RockRun as RockRunGears;
+use App\Services\Scrapers\GearScraper;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -70,12 +72,16 @@ class BrandController extends Controller
 //        $test = new RockRunCategories();
 //        $test = new TrekkInn();
 //        $test = new AlpinTrek();
-        $test = new AlpinTrekCategories();
-        dd($test->getData()[0]);
+//        $test = new AlpinTrekCategories();
+//        $test = new RockRunGears();
+//        dd($test->getData());
+//        dd($test->getData()[0]);
 
 //        ini_set('max_execution_time', 300);
 //        $test = new BrandScraper();
+//        $test = new GearScraper();
 //        dd($test->scrapeAll());
+        dd('test');
 
 //        $repository = new BrandRepository(new Brand());
 //        dd($repository->create(['name' => 'Test', 'website' => 'test website']));

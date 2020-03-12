@@ -27,4 +27,9 @@ class Brand extends Model
     {
         return $this->belongsTo(Website::class);
     }
+
+    public function gears()
+    {
+        return $this->hasMany(Gear::class);
+    }
 }

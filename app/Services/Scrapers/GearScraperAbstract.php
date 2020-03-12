@@ -23,24 +23,20 @@ abstract class GearScraperAbstract implements GearScraperInterface
         }
     }
 
-    public function scrape(PaginatedWebsiteScraperInterface $scraper)
+    public function scrape(WebsiteScraperInterface $scraper)
     {
-        $scrapedData = $scraper->getData()[0];
+        $scrapedData = $scraper->getData();
 
         foreach ($scrapedData as $data)
         {
-            // TODO: filter data before saveing to avoid duplication for the same product on the same website - if price did not change keep old price etc.
+            [$data['brand_id'], $data['name']] = $this->repository['gear']->transformName($data);
 
-            // Deal collection in for example RockRun can duplicate products, because they are visible in other collections too.
-            // e.g. Carabiners are in the carabiners category, but some carabiners can be visible as a deal too.
-            // Do checks if product exist in DB and if exists just add price (if different than last added price).
-
-            dd($data);
-
-//            if (!$this->repository->existByName($data['name']))
-//            {
-            $this->repository->create($data);
-//            }
+            $gear = $this->repository['gear']->create($data);
+            if ($gear)
+            {
+                $data['gear_id'] = $gear->id;
+                $this->repository['price']->create($this->repository['price']->convertPricesData($data));
+            }
         }
     }
 }

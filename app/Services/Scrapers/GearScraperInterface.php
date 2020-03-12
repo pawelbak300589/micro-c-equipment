@@ -6,5 +6,5 @@ interface GearScraperInterface
 {
     public function scrapeAll();
 
-    public function scrape(PaginatedWebsiteScraperInterface $scraper);
+    public function scrape(WebsiteScraperInterface $scraper);
 }

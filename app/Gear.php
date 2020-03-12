@@ -13,7 +13,7 @@ class Gear extends Model
      * @var array
      */
     protected $fillable = [
-        'website_id', 'name', 'url'
+        'website_id', 'brand_id', 'name', 'url'
     ];
 
     /**
@@ -26,6 +26,11 @@ class Gear extends Model
     public function website()
     {
         return $this->belongsTo(Website::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
 
     public function prices()

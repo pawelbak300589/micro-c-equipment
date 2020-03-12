@@ -17,11 +17,13 @@ class CreateGearsTable extends Migration
         {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('website_id');
+            $table->unsignedBigInteger('brand_id');
             $table->string('name');
             $table->string('url');
             $table->timestamps();
 
             $table->foreign('website_id')->references('id')->on('websites');
+            $table->foreign('brand_id')->references('id')->on('brands');
         });
     }
 

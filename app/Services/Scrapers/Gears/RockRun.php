@@ -22,23 +22,23 @@ class RockRun extends PaginatedWebsiteScraperAbstract
                 {
                     $link['name'] = $field->text();
                     $link['url'] = $field->attr('href');
-                    $link['website_id'] = $this->websiteId;
                     return $link;
                 });
 
                 $productsPrices = $crawler->filter('div#template-collection div.collection-matrix span.product-thumbnail__price')->each(function ($field)
                 {
-                    $price['prices'] = $field->text() !== 'Sold Out' ? explode(' ', $field->text()) : $field->text();
-                    $price['prices_type'] = 'normal';
+                    $price['prices'] = $field->text() !== 'Sold Out' ? explode(' ', $field->text()) : [$field->text()];
+                    $price['type'] = 'normal';
                     $isSale = in_array('sale', explode(' ', $field->attr('class')), true);
                     if ($isSale)
                     {
-                        $price['prices_type'] = 'sale';
-                        if ($price['prices'] === 'Sold Out')
+                        $price['type'] = 'sale';
+                        if ($price['prices'][0] === 'Sold Out')
                         {
-                            $price['prices_type'] = 'sold';
+                            $price['type'] = 'sold';
                         }
                     }
+                    $price['website_id'] = $this->websiteId;
                     return $price;
                 });
 

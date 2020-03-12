@@ -7,7 +7,7 @@ use Goutte\Client;
 use ReflectionClass;
 use ReflectionException;
 
-abstract class PaginatedWebsiteScraperAbstract implements PaginatedWebsiteScraperInterface
+abstract class PaginatedWebsiteScraperAbstract implements WebsiteScraperInterface
 {
     protected $websiteId;
     protected $goutteClient;

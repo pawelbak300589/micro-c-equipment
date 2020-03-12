@@ -19,6 +19,8 @@ class CreatePricesTable extends Migration
             $table->unsignedBigInteger('website_id');
             $table->unsignedBigInteger('gear_id');
             $table->string('price');
+            $table->string('sale_from');
+            $table->string('type');
             $table->timestamps();
 
             $table->foreign('gear_id')->references('id')->on('gears');

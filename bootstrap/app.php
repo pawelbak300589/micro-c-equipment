@@ -27,6 +27,11 @@ $app->withFacades();
 
 $app->withEloquent();
 
+/**
+ * Registering custom config files
+ */
+$app->configure('collections');
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings

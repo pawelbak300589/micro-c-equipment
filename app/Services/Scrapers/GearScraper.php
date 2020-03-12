@@ -19,7 +19,7 @@ class GearScraper extends ScraperAbstract
         parent::__construct();
         $this->repository = new GearRepository(new Gear());
         $this->websites = [
-
+            Roc
         ];
     }
 }

@@ -37,4 +37,9 @@ class Website extends Model
     {
         return $this->hasMany(Gear::class);
     }
+
+    public function prices()
+    {
+        return $this->hasMany(Price::class);
+    }
 }

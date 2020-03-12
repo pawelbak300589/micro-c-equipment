@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Gear extends Model
+class Price extends Model
 {
 
     /**
@@ -13,7 +13,7 @@ class Gear extends Model
      * @var array
      */
     protected $fillable = [
-        'website_id', 'name', 'url'
+        'website_id', 'gear_id', 'price'
     ];
 
     /**
@@ -28,8 +28,8 @@ class Gear extends Model
         return $this->belongsTo(Website::class);
     }
 
-    public function prices()
+    public function gear()
     {
-        return $this->hasMany(Price::class);
+        return $this->belongsTo(Gear::class);
     }
 }

@@ -1,9 +1,18 @@
 <?php
+/**
+ * RockRun Website Scraper file
+ */
 
 namespace App\Services\Scrapers\Gears;
 
 use App\Services\Scrapers\PaginatedWebsiteScraperAbstract;
 
+/**
+ * RockRun Website Scraper class
+ * @package App\Services\Scrapers\Gears
+ *
+ * @todo set some Exceptions if website was changed and $crawler->filter didnt find elements?! is $crawler->filter using some Exceptions?
+ */
 class RockRun extends PaginatedWebsiteScraperAbstract
 {
     public function __construct()
@@ -55,6 +64,9 @@ class RockRun extends PaginatedWebsiteScraperAbstract
         }
     }
 
+    /**
+     * TODO: maybe we can use some cache here to speed up scraping process (https://laravel.com/docs/6.x/cache) - set crawlers to cache so doesnt need to set it up every time you run scrape:gears - set cache for a week, because website can change after a week.
+     */
     public function setCrawlers()
     {
         foreach ($this->collections as $collectionIndex => $collectionUrl)

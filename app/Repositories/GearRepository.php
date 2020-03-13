@@ -2,9 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Brand;
+use App\BrandNameMapping;
 use App\Gear;
-use App\Website;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class GearRepository
 {
@@ -29,17 +31,29 @@ class GearRepository
         return $this->model->where('name', $data['name'])->first();
     }
 
-    public function transformName(array $data)
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function transformName(array $data): array
     {
-        $brands = Brand::select(['id', 'name'])->where('website_id', $data['website_id'])->get()->toArray();
-
-        foreach ($brands as $brand)
+        if (Cache::has('brand_name_mapping'))
         {
-            if (strpos($data['name'], $brand['name']) !== false)
+            $brandsMap = Cache::get('brand_name_mapping');
+        }
+        else
+        {
+            $brandsMap = BrandNameMapping::select(['brand_id', 'name'])->get()->toArray();
+            Cache::add('brand_name_mapping', $brandsMap, Carbon::now()->addWeeks(1));
+        }
+
+        foreach ($brandsMap as $brandMap)
+        {
+            if (strpos($data['name'], $brandMap['name'] . ' ') !== false)
             {
                 return [
-                    $brand['id'],
-                    trim(str_replace($brand['name'], '', $data['name']))
+                    $brandMap['brand_id'],
+                    trim(Str::replaceFirst($brandMap['name'], '', $data['name']))
                 ];
             }
         }

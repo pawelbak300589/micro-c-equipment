@@ -18,14 +18,14 @@ class BrandRepository
 
     public function existByName(string $name)
     {
-        return !empty($this->model->where('name', $name)->first());
+        return !empty($this->model->where('name', $name)->first()); // TODO: cache it
     }
 
     public function create(array $data)
     {
         if (!$this->existByName($data['name']) && !$this->mappingExist($data['name']))
         {
-            $brand = $this->model->create($data);
+            $brand = $this->model->create($data); // TODO: after creating new - create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
             if ($brand)
             {
                 $this->modelNameMapRepo->createNameMapping($brand);

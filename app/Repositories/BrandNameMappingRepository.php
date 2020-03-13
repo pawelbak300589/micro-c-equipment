@@ -18,14 +18,14 @@ class BrandNameMappingRepository
 
     public function existByName(string $name)
     {
-        return !empty($this->model->where('name', $name)->first());
+        return !empty($this->model->where('name', $name)->first()); // TODO: cache it
     }
 
     public function create(array $data)
     {
         if (!$this->existByName($data['name']))
         {
-            return $this->model->create($data);
+            return $this->model->create($data); // TODO: after creating new create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
         }
         return false;
     }
@@ -34,7 +34,7 @@ class BrandNameMappingRepository
     {
         foreach ($this->generateNameMapping($brand->name) as $mappedName)
         {
-            $this->create(['brand_id' => $brand->id, 'name' => $mappedName]);
+            $this->create(['brand_id' => $brand->id, 'name' => $mappedName]); // TODO: after creating new create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
         }
     }
 

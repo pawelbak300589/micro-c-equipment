@@ -55,10 +55,12 @@ class PriceRepository
         switch ($data['type'])
         {
             case 'normal':
+            case 'normal_from':
                 $price = $prices[0];
                 $saleFrom = 0;
                 break;
             case 'sale':
+            case 'sale_from':
                 list($price, $saleFrom) = $prices;
                 break;
             case 'sold':
@@ -78,7 +80,7 @@ class PriceRepository
 
     private function removeUnnecessaryElements($prices)
     {
-        $pos = array_search('fr1om', $prices, true);
+        $pos = array_search('from', $prices, true);
         if ($pos !== false)
         {
             unset($prices[$pos]);

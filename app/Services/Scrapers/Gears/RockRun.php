@@ -28,16 +28,8 @@ class RockRun extends PaginatedWebsiteScraperAbstract
                 $productsPrices = $crawler->filter('div#template-collection div.collection-matrix span.product-thumbnail__price')->each(function ($field)
                 {
                     $price['prices'] = $field->text() !== 'Sold Out' ? explode(' ', $field->text()) : [$field->text()];
-                    $price['type'] = 'normal';
                     $isSale = in_array('sale', explode(' ', $field->attr('class')), true);
-                    if ($isSale)
-                    {
-                        $price['type'] = 'sale';
-                        if ($price['prices'][0] === 'Sold Out')
-                        {
-                            $price['type'] = 'sold';
-                        }
-                    }
+                    $price['type'] = $this->setPriceType($price['prices'], $isSale);
                     $price['website_id'] = $this->websiteId;
                     return $price;
                 });

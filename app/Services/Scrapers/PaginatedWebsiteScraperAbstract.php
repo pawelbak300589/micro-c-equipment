@@ -48,6 +48,33 @@ abstract class PaginatedWebsiteScraperAbstract implements WebsiteScraperInterfac
         return count($this->collections);
     }
 
+    /**
+     * @param bool $isSale
+     * @param array $prices
+     * @return string
+     */
+    protected function setPriceType(array $prices, bool $isSale = false)
+    {
+        $priceType = 'normal';
+        if ($isSale)
+        {
+            $priceType = 'sale';
+            if ($prices[0] === 'Sold Out')
+            {
+                $priceType = 'sold';
+            }
+            elseif ($prices[0] === 'from' && count($prices) === 2)
+            {
+                $priceType = 'normal_from';
+            }
+            elseif ($prices[0] === 'from' && count($prices) === 3)
+            {
+                $priceType = 'sale_from';
+            }
+        }
+        return $priceType;
+    }
+
     private function setPreCrawlers()
     {
         foreach ($this->collections as $collectionIndex => $collectionUrl)

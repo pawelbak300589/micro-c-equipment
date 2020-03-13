@@ -68,13 +68,13 @@ class BrandController extends Controller
     {
 //        $test = new WeighMyRack();
 //        $test = new ClimbersShop();
-//        $test = new RockRun();
+        $test = new RockRun();
 //        $test = new RockRunCategories();
 //        $test = new TrekkInn();
 //        $test = new AlpinTrek();
 //        $test = new AlpinTrekCategories();
 //        $test = new RockRunGears();
-//        dd($test->getData());
+        dd($test->getData());
 //        dd($test->getData()[0]);
 
 //        ini_set('max_execution_time', 300);

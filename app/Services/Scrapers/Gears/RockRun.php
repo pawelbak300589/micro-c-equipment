@@ -11,7 +11,7 @@ use App\Services\Scrapers\PaginatedWebsiteScraperAbstract;
  * RockRun Website Scraper class
  * @package App\Services\Scrapers\Gears
  *
- * @todo set some Exceptions if website was changed and $crawler->filter didnt find elements?! is $crawler->filter using some Exceptions?
+ * @todo set some Exceptions if website was changed and $crawler->filter didnt find elements?! is $crawler->filter using some Exceptions? https://github.com/FriendsOfPHP/Goutte/issues/297
  */
 class RockRun extends PaginatedWebsiteScraperAbstract
 {

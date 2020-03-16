@@ -3,7 +3,21 @@
 return [
     'websites' => [
         'AlpinTrek' => [
-
+            'https://www.alpinetrek.co.uk/climbing-shoes',
+            'https://www.alpinetrek.co.uk/carabiners-quickdraws',
+            'https://www.alpinetrek.co.uk/climbing-harnesses',
+            'https://www.alpinetrek.co.uk/climbing-ropes',
+            'https://www.alpinetrek.co.uk/climbing-boulder-accessories',
+            'https://www.alpinetrek.co.uk/slings-cord',
+            'https://www.alpinetrek.co.uk/belay-devices-descenders',
+            'https://www.alpinetrek.co.uk/climbing-helmets',
+            'https://www.alpinetrek.co.uk/climbing-bouldering-training',
+            'https://www.alpinetrek.co.uk/mountaineering-ice-climbing',
+            'https://www.alpinetrek.co.uk/bigwall-trad-climbing',
+            'https://www.alpinetrek.co.uk/via-ferrata-gear',
+            'https://www.alpinetrek.co.uk/crash-pads',
+            'https://www.alpinetrek.co.uk/climbing-sets',
+            'https://www.alpinetrek.co.uk/slacklining',
         ],
         'RockRun' => [
             //Climbing Hardware
@@ -71,7 +85,7 @@ return [
             'https://rockrun.com/collections/training-aids',
         ],
         'TrekkInn' => [
-
+            'https://www.trekkinn.com/outdoor-mountain/climbing-equipment-accessories/14518/s',
         ],
     ],
 ];

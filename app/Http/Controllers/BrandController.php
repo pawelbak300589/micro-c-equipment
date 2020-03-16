@@ -6,12 +6,14 @@ use App\Brand;
 use App\Repositories\BrandRepository;
 use App\Services\Scrapers\Brands\AlpinTrek;
 use App\Services\Scrapers\Categories\AlpinTrek as AlpinTrekCategories;
+use App\Services\Scrapers\Gears\AlpinTrek as AlpinTrekGears;
 use App\Services\Scrapers\Brands\ClimbersShop;
 use App\Services\Scrapers\Brands\RockRun;
 use App\Services\Scrapers\Categories\RockRun as RockRunCategories;
 use App\Services\Scrapers\Brands\WeighMyRack;
 use App\Services\Scrapers\BrandScraper;
 use App\Services\Scrapers\Categories\TrekkInn;
+use App\Services\Scrapers\Gears\TrekkInn as TrekkInnGears;
 use App\Services\Scrapers\Gears\RockRun as RockRunGears;
 use App\Services\Scrapers\GearScraper;
 use App\Traits\ApiResponse;
@@ -66,18 +68,21 @@ class BrandController extends Controller
 
     public function test()
     {
+        ini_set('max_execution_time', 300);
+
 //        $test = new WeighMyRack();
 //        $test = new ClimbersShop();
-        $test = new RockRun();
+//        $test = new RockRun();
 //        $test = new RockRunCategories();
 //        $test = new TrekkInn();
 //        $test = new AlpinTrek();
 //        $test = new AlpinTrekCategories();
 //        $test = new RockRunGears();
+//        $test = new AlpinTrekGears();
+        $test = new TrekkInnGears();
         dd($test->getData());
 //        dd($test->getData()[0]);
 
-//        ini_set('max_execution_time', 300);
 //        $test = new BrandScraper();
 //        $test = new GearScraper();
 //        dd($test->scrapeAll());

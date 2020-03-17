@@ -14,6 +14,7 @@ use App\Services\Scrapers\Brands\WeighMyRack;
 use App\Services\Scrapers\BrandScraper;
 use App\Services\Scrapers\Categories\TrekkInn;
 use App\Services\Scrapers\Gears\TrekkInn as TrekkInnGears;
+use App\Services\Scrapers\Gears\ClimbersShop as ClimbersShopGears;
 use App\Services\Scrapers\Gears\RockRun as RockRunGears;
 use App\Services\Scrapers\GearScraper;
 use App\Traits\ApiResponse;
@@ -79,7 +80,8 @@ class BrandController extends Controller
 //        $test = new AlpinTrekCategories();
 //        $test = new RockRunGears();
 //        $test = new AlpinTrekGears();
-        $test = new TrekkInnGears();
+//        $test = new TrekkInnGears();
+        $test = new ClimbersShopGears();
         dd($test->getData());
 //        dd($test->getData()[0]);
 

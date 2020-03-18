@@ -9,6 +9,7 @@ use App\Gear;
 use App\Price;
 use App\Repositories\GearRepository;
 use App\Repositories\PriceRepository;
+use App\Services\Scrapers\Gears\EllisBrigham;
 use App\Services\Scrapers\Gears\RockRun;
 
 /**
@@ -25,7 +26,8 @@ class GearScraper extends GearScraperAbstract
             'price' => new PriceRepository(new Price()),
         ];
         $this->websites = [
-            RockRun::class
+//            RockRun::class,
+            EllisBrigham::class
         ];
     }
 }

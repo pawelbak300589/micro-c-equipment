@@ -14,8 +14,8 @@ abstract class WebsiteScraperAbstract implements WebsiteScraperInterface
 
     public function __construct()
     {
-        $goutteClient = new Client();
-        $this->crawler = $goutteClient->request('GET', $this->url);
+        $client = new Client();
+        $this->crawler = $client->request('GET', $this->url);
         $this->prepareWebsiteId();
     }
 

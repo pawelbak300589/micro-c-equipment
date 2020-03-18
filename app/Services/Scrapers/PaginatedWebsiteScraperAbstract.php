@@ -3,21 +3,30 @@
 namespace App\Services\Scrapers;
 
 use App\Website;
-use Goutte\Client;
+use Goutte\Client as GoutteClient;
+use Symfony\Component\Panther\Client as PantherClient;
 use ReflectionClass;
 use ReflectionException;
 
 abstract class PaginatedWebsiteScraperAbstract implements WebsiteScraperInterface
 {
     protected $websiteId;
-    protected $goutteClient;
+    protected $client;
     protected $crawlers;
     protected $collections;
     protected $pages;
+    protected $withJS = false;
 
     public function __construct()
     {
-        $this->goutteClient = new Client();
+        if ($this->withJS)
+        {
+            $this->client = PantherClient::createChromeClient(); // https://www.thoughtfulcode.com/php-web-scraping/
+        }
+        else
+        {
+            $this->client = new GoutteClient();
+        }
         $this->setPreCrawlers();
         $this->updatePagesNumber();
         $this->setCrawlers();
@@ -38,7 +47,7 @@ abstract class PaginatedWebsiteScraperAbstract implements WebsiteScraperInterfac
         {
             for ($pageNum = 1; $pageNum <= $this->pages[$collectionIndex]; $pageNum++)
             {
-                $this->crawlers[$collectionIndex][$pageNum] = $this->goutteClient->request('GET', $collectionUrl);
+                $this->crawlers[$collectionIndex][$pageNum] = $this->client->request('GET', $collectionUrl);
             }
         }
     }
@@ -79,7 +88,7 @@ abstract class PaginatedWebsiteScraperAbstract implements WebsiteScraperInterfac
     {
         foreach ($this->collections as $collectionIndex => $collectionUrl)
         {
-            $this->crawlers[$collectionIndex][1] = $this->goutteClient->request('GET', $collectionUrl);
+            $this->crawlers[$collectionIndex][1] = $this->client->request('GET', $collectionUrl);
         }
     }
 

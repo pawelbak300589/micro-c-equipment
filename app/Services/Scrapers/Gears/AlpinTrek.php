@@ -88,7 +88,7 @@ class AlpinTrek extends PaginatedWebsiteScraperAbstract
         {
             for ($pageNum = 1; $pageNum <= $this->pages[$collectionIndex]; $pageNum++)
             {
-                $this->crawlers[$collectionIndex][$pageNum] = $this->goutteClient->request('GET', $collectionUrl . '/' . $pageNum . '/');
+                $this->crawlers[$collectionIndex][$pageNum] = $this->client->request('GET', $collectionUrl . '/' . $pageNum . '/');
             }
         }
     }

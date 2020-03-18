@@ -84,7 +84,14 @@ return [
             '',
         ],
         'EllisBrigham' => [
-            '',
+            'https://www.ellis-brigham.com/climbing-accessories',
+//            'https://www.ellis-brigham.com/ice-climbing-equipment',
+//            'https://www.ellis-brigham.com/climbing-equipment',
+//            'https://www.ellis-brigham.com/kids-climbing-shoes',
+//            'https://www.ellis-brigham.com/womens-climbing-shoes',
+//            'https://www.ellis-brigham.com/mens-climbing-shoes',
+//            'https://www.ellis-brigham.com/womens-climbing-clothing',
+//            'https://www.ellis-brigham.com/mens-climbing-clothing',
         ],
         'GoOutdoors' => [
             '',

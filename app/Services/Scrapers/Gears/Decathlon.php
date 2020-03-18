@@ -56,15 +56,4 @@ class Decathlon extends PaginatedWebsiteScraperAbstract
 
         return $data;
     }
-
-//    public function updatePagesNumber()
-//    {
-//        for ($collectionIndex = 0; $collectionIndex < $this->getCollectionsNumber(); $collectionIndex++)
-//        {
-//            $paginator = $this->crawlers[$collectionIndex][1]->filter('div.container--pagination div.paginate');
-//            $this->pages[$collectionIndex] = $paginator->count() ? $this->crawlers[$collectionIndex][1]
-//                ->filter('div.container--pagination div.paginate')
-//                ->attr('data-paginate-pages') : 1;
-//        }
-//    }
 }

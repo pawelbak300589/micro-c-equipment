@@ -19,6 +19,9 @@ return [
             'https://www.alpinetrek.co.uk/climbing-sets',
             'https://www.alpinetrek.co.uk/slacklining',
         ],
+        'BananaFingers' => [
+            '',
+        ],
         'ClimbersShop' => [
             'https://www.climbers-shop.com/climbing-equipment/ascenders--descenders-and-pulleys',
             'https://www.climbers-shop.com/climbing-equipment/big-wall-gear',
@@ -42,6 +45,37 @@ return [
             'https://www.climbers-shop.com/climbing-equipment/nuts-and-hexes',
             'https://www.climbers-shop.com/climbing-equipment/rope-bags',
             'https://www.climbers-shop.com/climbing-equipment/via-ferrata-sets',
+        ],
+        'CotswoldOutdoor' => [
+            '',
+        ],
+        'Decathlon' => [
+            'https://www.decathlon.co.uk/C-881836-climbing-shoes',
+            'https://www.decathlon.co.uk/C-535605-carabiners-and-quickdraws',
+            'https://www.decathlon.co.uk/C-881837-climbing-harnesses',
+            'https://www.decathlon.co.uk/C-541994-climbing-ropes-and-ropes-bags/N-299827-product-type~climbing-rope',
+            'https://www.decathlon.co.uk/C-541994-climbing-ropes-and-ropes-bags/N-299827-product-type~sling',
+            'https://www.decathlon.co.uk/C-541994-climbing-ropes-and-ropes-bags/N-299827-product-type~climbing-accessory-cord',
+            'https://www.decathlon.co.uk/C-541994-climbing-ropes-and-ropes-bags/N-299827-product-type~static-rope',
+            'https://www.decathlon.co.uk/C-541994-climbing-ropes-and-ropes-bags/N-299827-product-type~climbing-bag',
+            'https://www.decathlon.co.uk/C-541994-climbing-ropes-and-ropes-bags/N-299827-product-type~climbing-lanyard',
+            'https://www.decathlon.co.uk/C-869316-chalk-bags-chalk-and-accessories',
+            'https://www.decathlon.co.uk/C-869273-climbing-clothing/N-328037-gender~women',
+            'https://www.decathlon.co.uk/C-869273-climbing-clothing/N-328037-gender~men',
+            'https://www.decathlon.co.uk/C-869273-climbing-clothing/N-328037-gender~boys',
+            'https://www.decathlon.co.uk/C-869273-climbing-clothing/N-328037-gender~girls',
+            'https://www.decathlon.co.uk/C-869317-belay-devices-camming-devices-and-nuts',
+            'https://www.decathlon.co.uk/C-869270-climbing-helmets',
+            'https://www.decathlon.co.uk/C-1125268-climbing-holds',
+        ],
+        'DicksClimbing' => [
+            '',
+        ],
+        'EllisBrigham' => [
+            '',
+        ],
+        'GoOutdoors' => [
+            '',
         ],
         'RockRun' => [
             //Climbing Hardware
@@ -107,6 +141,9 @@ return [
             'https://rockrun.com/collections/climbing-holds',
             'https://rockrun.com/collections/fingerboards',
             'https://rockrun.com/collections/training-aids',
+        ],
+        'TheClimbingDepot' => [
+            '',
         ],
         'TrekkInn' => [ // TODO: problem with pagination - not all equipments are loading/scraped...
 //            'https://www.trekkinn.com/outdoor-mountain/climbing-equipment-quickdraws/14517/s#fq=id_familia%3A11243&fq={!tag=ds}id_subfamilia%3A14517&fq=id_tienda%3A3&sort=v30+desc,product(tm3,%20dispo)+asc&start=0&fq={!tag=dm}marca%3A%22Beal%22',

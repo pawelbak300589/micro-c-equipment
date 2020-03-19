@@ -13,6 +13,11 @@ use App\Services\Scrapers\Categories\RockRun as RockRunCategories;
 use App\Services\Scrapers\Brands\WeighMyRack;
 use App\Services\Scrapers\BrandScraper;
 use App\Services\Scrapers\Categories\TrekkInn;
+use App\Services\Scrapers\Gears\BananaFingers;
+use App\Services\Scrapers\Gears\CotswoldOutdoor;
+use App\Services\Scrapers\Gears\Decathlon;
+use App\Services\Scrapers\Gears\EllisBrigham;
+use App\Services\Scrapers\Gears\GoOutdoors;
 use App\Services\Scrapers\Gears\TrekkInn as TrekkInnGears;
 use App\Services\Scrapers\Gears\ClimbersShop as ClimbersShopGears;
 use App\Services\Scrapers\Gears\RockRun as RockRunGears;
@@ -69,7 +74,7 @@ class BrandController extends Controller
 
     public function test()
     {
-        ini_set('max_execution_time', 300);
+        ini_set('max_execution_time', 1000);
 
 //        $test = new WeighMyRack();
 //        $test = new ClimbersShop();
@@ -81,7 +86,12 @@ class BrandController extends Controller
 //        $test = new RockRunGears();
 //        $test = new AlpinTrekGears();
 //        $test = new TrekkInnGears();
-        $test = new ClimbersShopGears();
+//        $test = new ClimbersShopGears();
+//        $test = new Decathlon();
+//        $test = new CotswoldOutdoor();
+//        $test = new EllisBrigham();
+//        $test = new GoOutdoors();
+        $test = new BananaFingers();
         dd($test->getData());
 //        dd($test->getData()[0]);
 

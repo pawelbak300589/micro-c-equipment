@@ -10,6 +10,7 @@ use App\Price;
 use App\Repositories\GearRepository;
 use App\Repositories\PriceRepository;
 use App\Services\Scrapers\Gears\AlpinTrek;
+use App\Services\Scrapers\Gears\BananaFingers;
 use App\Services\Scrapers\Gears\ClimbersShop;
 use App\Services\Scrapers\Gears\CotswoldOutdoor;
 use App\Services\Scrapers\Gears\Decathlon;
@@ -33,6 +34,7 @@ class GearScraper extends GearScraperAbstract
         ];
         $this->websites = [
             AlpinTrek::class,
+            BananaFingers::class,
             //ClimbersShop::class, // TODO: not working because JavaScript loading - use Panther or Laravel Dusk
             CotswoldOutdoor::class,
             Decathlon::class,

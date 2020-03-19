@@ -68,18 +68,18 @@ abstract class PaginatedWebsiteScraperAbstract implements WebsiteScraperInterfac
         if ($isSale)
         {
             $priceType = 'sale';
-            if ($prices[0] === 'Sold Out')
-            {
-                $priceType = 'sold';
-            }
-            elseif ($prices[0] === 'from' && count($prices) === 2)
+            if (strtolower($prices[0]) === 'from' && count($prices) === 2)
             {
                 $priceType = 'normal_from';
             }
-            elseif ($prices[0] === 'from' && count($prices) === 3)
+            elseif (strtolower($prices[0]) === 'from' && count($prices) === 3)
             {
                 $priceType = 'sale_from';
             }
+        }
+        if ($prices[0] === 'Sold Out')
+        {
+            $priceType = 'sold';
         }
         return $priceType;
     }

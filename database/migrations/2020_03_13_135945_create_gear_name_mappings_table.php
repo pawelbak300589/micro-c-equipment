@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGearsTable extends Migration
+class CreateGearNameMappingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateGearsTable extends Migration
      */
     public function up()
     {
-        Schema::create('gears', function (Blueprint $table)
+        Schema::create('gear_name_mappings', function (Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('gear_id');
             $table->string('name');
-            $table->string('url');
             $table->timestamps();
 
-            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->foreign('gear_id')->references('id')->on('gears')->onDelete('cascade');
         });
     }
 
@@ -32,6 +31,6 @@ class CreateGearsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gears');
+        Schema::dropIfExists('gear_name_mappings');
     }
 }

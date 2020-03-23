@@ -32,12 +32,12 @@ class BrandController extends Controller
 
     public function showAllBrands()
     {
-        return $this->successResponse(Brand::all());
+        return $this->successResponse(Brand::with(['nameMappings'])->get());
     }
 
     public function showOneBrand($id)
     {
-        return $this->successResponse(Brand::find($id));
+        return $this->successResponse(Brand::find($id)->with(['nameMappings'])->get());
     }
 
     public function store(Request $request)

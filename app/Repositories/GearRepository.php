@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\BrandNameMapping;
 use App\Gear;
+use App\GearNameMapping;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -11,22 +12,29 @@ use Illuminate\Support\Str;
 class GearRepository
 {
     protected $model;
+    protected $modelNameMapRepo;
 
     public function __construct(Gear $model)
     {
         $this->model = $model;
+        $this->modelNameMapRepo = new GearNameMappingRepository(new GearNameMapping());
     }
 
     public function existByName(string $name)
     {
-        return !empty($this->model->where('name', $name)->first());
+        return !empty($this->model->where('name', $name)->first()); // TODO: cache it
     }
 
     public function create(array $data)
     {
-        if (!$this->existByName($data['name']))
+        if (!$this->existByName($data['name']) && !$this->modelNameMapRepo->existByName($data['name']))
         {
-            return $this->model->create($data);
+            $gear = $this->model->create($data); // TODO: after creating new - create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
+            if ($gear)
+            {
+                $this->modelNameMapRepo->createNameMapping($gear);
+                return $gear;
+            }
         }
         return $this->model->where('name', $data['name'])->first();
     }

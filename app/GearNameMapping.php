@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Gear extends Model
+class GearNameMapping extends Model
 {
 
     /**
@@ -13,7 +13,7 @@ class Gear extends Model
      * @var array
      */
     protected $fillable = [
-        'brand_id', 'name', 'url'
+        'gear_id', 'name'
     ];
 
     /**
@@ -23,18 +23,8 @@ class Gear extends Model
      */
     protected $hidden = [];
 
-    public function nameMappings()
+    public function gear()
     {
-        return $this->hasMany(GearNameMapping::class);
-    }
-
-    public function brand()
-    {
-        return $this->belongsTo(Brand::class);
-    }
-
-    public function prices()
-    {
-        return $this->hasMany(Price::class);
+        return $this->belongsTo(Gear::class);
     }
 }

@@ -11,6 +11,11 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\Category::class)->create([
+            'id' => 1,
+            'website_id' => 1,
+            'name' => 'Default Category',
+            'url' => 'http://default.com',
+        ]);
     }
 }

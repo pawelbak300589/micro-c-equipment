@@ -12,5 +12,10 @@ class BrandsTableSeeder extends Seeder
      */
     public function run()
     {
+        factory(App\Brand::class)->create([
+            'id' => 1,
+            'name' => 'Default Brand',
+            'url' => 'http://default.com',
+        ]);
     }
 }

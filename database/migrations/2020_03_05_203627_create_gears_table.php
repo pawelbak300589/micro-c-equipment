@@ -19,6 +19,7 @@ class CreateGearsTable extends Migration
             $table->unsignedBigInteger('brand_id');
             $table->string('name');
             $table->string('url');
+            $table->string('img');
             $table->timestamps();
 
             $table->foreign('brand_id')->references('id')->on('brands');

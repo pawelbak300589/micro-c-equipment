@@ -33,7 +33,7 @@ class BananaFingers extends PaginatedWebsiteScraperAbstract
                     }
                     $productsData['name'] = $field->filter('div.node-product-teaser-list-view__name')->text();
                     $productsData['url'] = $field->attr('href');
-                    $productsData['img'] = $field->filter('img')->attr('src');
+                    $productsData['img'] = $field->filter('img')->count() ? $field->filter('img')->attr('src') : '/default.png';
 
                     $isSale = false;
                     if ($field->filter('div.node-product-teaser-list-view__oos')->count())

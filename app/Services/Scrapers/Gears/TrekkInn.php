@@ -25,6 +25,12 @@ class TrekkInn extends PaginatedWebsiteScraperAbstract
         {
             foreach ($this->crawlers[$collectionIndex] as $crawler)
             {
+                $productsImages = $crawler->filter('div.nuestra_seleccion ul li div.BoxImage img')->each(function ($field)
+                {
+                    $image['img'] = 'https://www.trekkinn.com' . ($field->attr('data-src') ?? $field->attr('src'));
+                    return $image;
+                });
+
                 $productsLinks = $crawler->filter('div.nuestra_seleccion ul li div.BoxPrice p.BoxPriceName a')->each(function ($field)
                 {
                     $link['name'] = $field->text();
@@ -43,7 +49,7 @@ class TrekkInn extends PaginatedWebsiteScraperAbstract
 
                 for ($i = 0, $iMax = count($productsLinks); $i < $iMax; $i++)
                 {
-                    $data[] = array_merge($productsLinks[$i], $productsPrices[$i]);
+                    $data[] = array_merge($productsLinks[$i], $productsPrices[$i], $productsImages[$i]);
                 }
             }
         }

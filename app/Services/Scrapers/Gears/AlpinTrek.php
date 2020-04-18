@@ -28,6 +28,7 @@ class AlpinTrek extends PaginatedWebsiteScraperAbstract
                 $productsLinks = $crawler->filter('ul#product-list li.product-item a.product-link')->each(function ($field)
                 {
                     $links['url'] = $field->attr('href');
+                    $links['img'] = $field->filter('img.product-image')->count() ? $field->filter('img.product-image')->attr('data-src') : '/default.png';
                     return $links;
                 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Blacklist;
 use App\Brand;
 use App\BrandNameMapping;
 use App\Repositories\BrandNameMappingRepository;
@@ -81,7 +82,25 @@ class BrandController extends Controller
 
     public function blacklist($id)
     {
-        return $this->successResponse('test blacklist');
+        $brand = Brand::findOrFail($id);
+        $brandMappings = BrandNameMapping::findByBrandId($brand->id);
+
+        $newBlacklistEntry = Blacklist::create([
+            'type' => 'brand',
+            'name' => $brand->name,
+        ]);
+
+        if ($newBlacklistEntry)
+        {
+            foreach ($brandMappings as $mapping)
+            {
+                $mapping->delete();
+            }
+            $brand->delete();
+
+            return $this->successResponse('test blacklist');
+        }
+        return $this->errorResponse('Something went wrong', Response::HTTP_BAD_REQUEST);
     }
 
     public function convert($id, $type, $parentId)

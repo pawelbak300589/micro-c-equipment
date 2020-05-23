@@ -26,7 +26,7 @@ $router->get('/', function () use ($router)
         $router->get('brands/{id}', ['uses' => 'BrandController@showOneBrand']);
         $router->post('brands', ['uses' => 'BrandController@create']);
         $router->delete('brands/{id}', ['uses' => 'BrandController@delete']);
-        $router->put('brands/{id}', ['uses' => 'BrandController@update']);
+        $router->patch('brands/{id}', ['uses' => 'BrandController@update']);
         $router->post('brands/{id}/blacklist', ['uses' => 'BrandController@blacklist']);
         $router->post('brands/{id}/convert/{$type}/{$parentId}', ['uses' => 'BrandController@convert']);
 
@@ -34,12 +34,12 @@ $router->get('/', function () use ($router)
         $router->get('gears/{id}', ['uses' => 'GearController@showOneGear']);
         $router->post('gears', ['uses' => 'GearController@create']);
         $router->delete('gears/{id}', ['uses' => 'GearController@delete']);
-        $router->put('gears/{id}', ['uses' => 'GearController@update']);
+        $router->patch('gears/{id}', ['uses' => 'GearController@update']);
 
         $router->get('categories', ['uses' => 'CategoryController@showAllCategories']);
         $router->get('categories/{id}', ['uses' => 'CategoryController@showOneCategory']);
         $router->post('categories', ['uses' => 'CategoryController@create']);
         $router->delete('categories/{id}', ['uses' => 'CategoryController@delete']);
-        $router->put('categories/{id}', ['uses' => 'CategoryController@update']);
+        $router->patch('categories/{id}', ['uses' => 'CategoryController@update']);
     });
 //});

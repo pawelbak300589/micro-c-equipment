@@ -52,7 +52,8 @@ class BrandController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'website' => 'required|max:255'
+            'url' => 'required|max:255',
+            'img' => 'required|max:255'
         ]);
 
         $brand = Brand::create($request->all());
@@ -64,7 +65,8 @@ class BrandController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'website' => 'required|max:255'
+            'url' => 'required|max:255',
+            'img' => 'required|max:255'
         ]);
 
         $brand = Brand::findOrFail($id);

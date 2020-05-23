@@ -66,7 +66,7 @@ class GearRepository
             }
         }
 
-        return [0, $data['name']];
+        return [1, $data['name']];
     }
 
 }

@@ -16,6 +16,7 @@ class BrandsTableSeeder extends Seeder
             'id' => 1,
             'name' => 'Default Brand',
             'url' => 'http://default.com',
+            'img' => '/default.png',
         ]);
     }
 }

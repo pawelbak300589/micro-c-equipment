@@ -6,6 +6,7 @@
 namespace App\Services\Scrapers\Gears;
 
 use App\Services\Scrapers\PaginatedWebsiteScraperAbstract;
+use Illuminate\Support\Str;
 
 /**
  * RockRun Website Scraper class
@@ -43,9 +44,18 @@ class RockRun extends PaginatedWebsiteScraperAbstract
                     return $price;
                 });
 
+                $productsImages = $crawler->filter('div#template-collection div.collection-matrix div.product-image__wrapper img.lazyload')->each(function ($field)
+                {
+                    if($field->attr('data-src'))
+                    {
+                        $image['img'] = $field->attr('data-src');
+                        return $image;
+                    }
+                });
+
                 for ($i = 0, $iMax = count($productsLinks); $i < $iMax; $i++)
                 {
-                    $data[] = array_merge($productsLinks[$i], $productsPrices[$i]);
+                    $data[] = array_merge($productsLinks[$i], $productsPrices[$i], $productsImages[$i]);
                 }
             }
         }

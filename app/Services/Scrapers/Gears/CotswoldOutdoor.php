@@ -30,7 +30,7 @@ class CotswoldOutdoor extends PaginatedWebsiteScraperAbstract
                     $productsData['url'] = $field->attr('href');
                     $productsData['brand'] = $field->filter('span.as-m-product-tile__brand')->text();
                     $productsData['name'] = $field->filter('span.as-m-product-tile__name')->text();
-
+                    $productsData['img'] = $field->filter('img')->attr('data-src') ?? $field->filter('img')->attr('src');
                     $productsData['prices'][] = str_replace(' ', '', $field->filter('div.as-a-price div.as-a-price__value')->text());
                     if ($field->filter('div.as-a-price div.as-a-price__value span.as-a-text del')->count())
                     {

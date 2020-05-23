@@ -317,7 +317,7 @@ return [
             'https://rockrun.com/collections/pulleys',
             'https://rockrun.com/collections/quickdraws',
             'https://rockrun.com/collections/tri-cams',
-//            //Ropes & Slings
+            //Ropes & Slings
             'https://rockrun.com/collections/accessory-cord-and-tape',
             'https://rockrun.com/collections/gear-sling',
             'https://rockrun.com/collections/climbing-ropes',
@@ -330,18 +330,18 @@ return [
             'https://rockrun.com/collections/static-rope',
             'https://rockrun.com/collections/shock-absorbers',
             'https://rockrun.com/collections/slings',
-//            //Climbing Shoes
+            //Climbing Shoes
             'https://rockrun.com/collections/climbing-shoes',
             'https://rockrun.com/collections/kids-rock-shoes',
             'https://rockrun.com/collections/womens-rock-shoes',
-//            //Climbing Harnesses
+            //Climbing Harnesses
             'https://rockrun.com/collections/harnesses',
             'https://rockrun.com/collections/kids-harnesses',
             'https://rockrun.com/collections/womens-harnesses',
-//            //Via Ferrata
+            //Via Ferrata
             'https://rockrun.com/collections/via-ferrata-kits',
             'https://rockrun.com/collections/via-ferrata',
-//            //Climbing Essentials
+            //Climbing Essentials
             'https://rockrun.com/collections/belay-glasses',
             'https://rockrun.com/collections/belay-gloves',
             'https://rockrun.com/collections/climbing-chalk',
@@ -355,7 +355,7 @@ return [
             'https://rockrun.com/collections/knives',
             'https://rockrun.com/collections/outdoor-first-aid-kits',
             'https://rockrun.com/collections/rucksacks',
-//            //Bouldering & Training
+            //Bouldering & Training
             'https://rockrun.com/collections/bouldering-pads',
             'https://rockrun.com/collections/climbing-brushes',
             'https://rockrun.com/collections/campus-rungs',

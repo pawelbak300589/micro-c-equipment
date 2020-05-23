@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\BrandNameMapping;
+use App\Repositories\BrandNameMappingRepository;
 use App\Repositories\BrandRepository;
 use App\Services\Scrapers\Brands\AlpinTrek;
 use App\Services\Scrapers\Categories\AlpinTrek as AlpinTrekCategories;
@@ -32,7 +34,12 @@ class BrandController extends Controller
 
     public function showAllBrands()
     {
-        return $this->successResponse(Brand::with(['nameMappings'])->get());
+        $brands = Brand::with(['nameMappings'])->get();
+        if ($brands)
+        {
+            return $this->successResponse($brands);
+        }
+        return $this->successResponse('There are no brands in database');
     }
 
     public function showOneBrand($id)
@@ -70,6 +77,38 @@ class BrandController extends Controller
         $brand = Brand::findOrFail($id);
         $brand->delete();
         return $this->successResponse($brand);
+    }
+
+    public function blacklist($id)
+    {
+        return $this->successResponse('test blacklist');
+    }
+
+    public function convert($id, $type, $parentId)
+    {
+        $brand = Brand::findOrFail($id);
+
+        if ($type === 'map')
+        {
+            $newParentMapping = BrandNameMapping::create([
+                'brand_id' => $parentId,
+                'name' => $brand->name
+            ]);
+
+            if ($newParentMapping)
+            {
+                $brandMappings = BrandNameMapping::findByBrandId($brand->id);
+                foreach ($brandMappings as $mapping)
+                {
+                    $mapping->brand_id = $parentId;
+                    $mapping->update();
+                }
+                $brand->delete();
+                return $this->successResponse("Brand {$brand->name} successfully converted into mapping");
+            }
+            return $this->errorResponse('Something went wrong', Response::HTTP_BAD_REQUEST);
+        }
+        return $this->errorResponse('There is no conversion with that type', Response::HTTP_BAD_REQUEST);
     }
 
     public function test()

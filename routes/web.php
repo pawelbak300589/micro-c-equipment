@@ -27,6 +27,8 @@ $router->get('/', function () use ($router)
         $router->post('brands', ['uses' => 'BrandController@create']);
         $router->delete('brands/{id}', ['uses' => 'BrandController@delete']);
         $router->put('brands/{id}', ['uses' => 'BrandController@update']);
+        $router->post('brands/{id}/blacklist', ['uses' => 'BrandController@blacklist']);
+        $router->post('brands/{id}/convert/{$type}/{$parentId}', ['uses' => 'BrandController@convert']);
 
         $router->get('gears', ['uses' => 'GearController@showAllGears']);
         $router->get('gears/{id}', ['uses' => 'GearController@showOneGear']);

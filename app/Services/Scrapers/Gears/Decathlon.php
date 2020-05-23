@@ -30,6 +30,7 @@ class Decathlon extends PaginatedWebsiteScraperAbstract
                     $productsData['url'] = $field->attr('href');
                     $productsData['brand'] = $field->filter('div.content-container div.infos-container p.product-brand')->text();
                     $productsData['name'] = $field->filter('div.content-container div.infos-container h3.product-label')->text();
+                    $productsData['img'] = 'https://www.decathlon.co.uk' . ($field->filter('img.product-picture')->attr('data-src') ?? $field->filter('img.product-picture')->attr('src'));
 
                     $productsData['prices'][] = $field->filter('div.header-container div.sticker-price-container div.price-container div.price')->text();
                     if ($field->filter('div.header-container div.sticker-price-container div.price-container span.old-price.crossed')->text() !== '')

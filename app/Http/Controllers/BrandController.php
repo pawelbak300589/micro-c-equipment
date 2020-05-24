@@ -76,7 +76,7 @@ class BrandController extends Controller
         return $this->successResponse($brand, Response::HTTP_CREATED);
     }
 
-    public function update($id, Request $request)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required|max:255',
@@ -88,7 +88,11 @@ class BrandController extends Controller
         //TODO: check if brand with this name exist and return errorResponse if true
         $brand = $this->repository->update($brand, $request->all());
 
-        return $this->successResponse($brand->fresh());
+        if ($brand)
+        {
+            return $this->successResponse($brand);
+        }
+        return $this->errorResponse('Brand already exist!', Response::HTTP_CONFLICT);
     }
 
     public function delete($id)

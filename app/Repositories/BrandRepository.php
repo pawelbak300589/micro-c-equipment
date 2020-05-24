@@ -37,7 +37,7 @@ class BrandRepository
 
     public function update(Brand $brand, array $data)
     {
-        if (!$this->existByName($data['name']) && !$this->modelNameMapRepo->existByName($data['name']))
+        if (!$this->existByName($data['name']))
         {
             $brand->update($data);
             if ($brand)

@@ -46,7 +46,7 @@ class BrandNameMappingRepository
 
     public function removeAllNameMapping($brand)
     {
-        $brandMappings = $this->model->findByBrandId($brand->id);
+        $brandMappings = $this->model->where('brand_id', '=', $brand->id)->get();
         foreach ($brandMappings as $mapping)
         {
             $mapping->delete();

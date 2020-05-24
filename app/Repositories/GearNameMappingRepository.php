@@ -45,15 +45,16 @@ class GearNameMappingRepository
      */
     protected function generateNameMapping(string $name): array
     {
+        $specialSigns = [' ', '.', ',', '-', '_', '+', "'", '`'];
         return [
             $name,
-            str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name),
+            str_replace($specialSigns, '', $name),
             Str::lower($name),
-            Str::lower(str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name)),
+            Str::lower(str_replace($specialSigns, '', $name)),
             Str::upper($name),
-            Str::upper(str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name)),
+            Str::upper(str_replace($specialSigns, '', $name)),
             Str::ucfirst($name),
-            Str::ucfirst(str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name)),
+            Str::ucfirst(str_replace($specialSigns, '', $name)),
         ];
     }
 }

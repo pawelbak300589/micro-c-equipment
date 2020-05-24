@@ -38,6 +38,21 @@ class BrandNameMappingRepository
         }
     }
 
+    public function refreshNameMapping($brand)
+    {
+        $this->removeAllNameMapping($brand);
+        $this->createNameMapping($brand);
+    }
+
+    public function removeAllNameMapping($brand)
+    {
+        $brandMappings = $this->model->findByBrandId($brand->id);
+        foreach ($brandMappings as $mapping)
+        {
+            $mapping->delete();
+        }
+    }
+
     /**
      * Generates name mapping from given name.
      * (upper cases, lower cases, no spaces or with spaces etc.)
@@ -47,25 +62,26 @@ class BrandNameMappingRepository
      */
     protected function generateNameMapping(string $name): array
     {
+        $specialSigns = [' ', '.', ',', '-', '_', '+', "'", '`'];
         return [
             $name,
-            str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name),
+            str_replace($specialSigns, '', $name),
             Str::lower($name),
-            Str::lower(str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name)),
+            Str::lower(str_replace($specialSigns, '', $name)),
             Str::upper($name),
-            Str::upper(str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name)),
+            Str::upper(str_replace($specialSigns, '', $name)),
             Str::ucfirst($name),
-            Str::ucfirst(str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name)),
+            Str::ucfirst(str_replace($specialSigns, '', $name)),
             Str::studly($name),
-            Str::studly(str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name)),
+            Str::studly(str_replace($specialSigns, '', $name)),
             Str::ascii($name),
-            Str::ascii(str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name)),
+            Str::ascii(str_replace($specialSigns, '', $name)),
             Str::camel($name),
-            Str::camel(str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name)),
+            Str::camel(str_replace($specialSigns, '', $name)),
             Str::snake($name),
-            Str::snake(str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name)),
+            Str::snake(str_replace($specialSigns, '', $name)),
             Str::kebab($name),
-            Str::kebab(str_replace([' ', '.', ',', '-', '_', '+', "'", '`'], '', $name)),
+            Str::kebab(str_replace($specialSigns, '', $name)),
         ];
     }
 }

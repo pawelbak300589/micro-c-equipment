@@ -34,4 +34,18 @@ class BrandRepository
         }
         return false;
     }
+
+    public function update(Brand $brand, array $data)
+    {
+        if (!$this->existByName($data['name']) && !$this->modelNameMapRepo->existByName($data['name']))
+        {
+            $brand->update($data);
+            if ($brand)
+            {
+                $this->modelNameMapRepo->refreshNameMapping($brand);
+                return $brand;
+            }
+        }
+        return false;
+    }
 }

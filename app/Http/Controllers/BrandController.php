@@ -33,7 +33,22 @@ class BrandController extends Controller
 {
     use ApiResponse;
 
-    public function showAllBrands()
+    /**
+     * @var BrandRepository
+     */
+    protected $repository;
+    /**
+     * @var BrandNameMappingRepository
+     */
+    protected $mappingRepository;
+
+    public function __construct()
+    {
+        $this->repository = new BrandRepository(new Brand());
+        $this->mappingRepository = new BrandNameMappingRepository(new BrandNameMapping());
+    }
+
+    public function index()
     {
         $brands = Brand::with(['nameMappings'])->get();
         if ($brands)
@@ -43,9 +58,9 @@ class BrandController extends Controller
         return $this->successResponse('There are no brands in database');
     }
 
-    public function showOneBrand($id)
+    public function show($id)
     {
-        return $this->successResponse(Brand::find($id)->with(['nameMappings'])->get());
+        return $this->successResponse(Brand::with(['nameMappings'])->findOrFail($id));
     }
 
     public function store(Request $request)
@@ -56,7 +71,7 @@ class BrandController extends Controller
             'img' => 'required|max:255'
         ]);
 
-        $brand = Brand::create($request->all());
+        $brand = $this->repository->create($request->all());
 
         return $this->successResponse($brand, Response::HTTP_CREATED);
     }
@@ -70,14 +85,16 @@ class BrandController extends Controller
         ]);
 
         $brand = Brand::findOrFail($id);
-        $brand->update($request->all());
+        //TODO: check if brand with this name exist and return errorResponse if true
+        $brand = $this->repository->update($brand, $request->all());
 
-        return $this->successResponse($brand);
+        return $this->successResponse($brand->fresh());
     }
 
     public function delete($id)
     {
         $brand = Brand::findOrFail($id);
+        $this->mappingRepository->removeAllNameMapping($brand);
         $brand->delete();
         return $this->successResponse($brand);
     }
@@ -85,7 +102,6 @@ class BrandController extends Controller
     public function blacklist($id)
     {
         $brand = Brand::findOrFail($id);
-        $brandMappings = BrandNameMapping::findByBrandId($brand->id);
 
         $newBlacklistEntry = Blacklist::create([
             'type' => 'brand',
@@ -94,10 +110,7 @@ class BrandController extends Controller
 
         if ($newBlacklistEntry)
         {
-            foreach ($brandMappings as $mapping)
-            {
-                $mapping->delete();
-            }
+            $this->mappingRepository->removeAllNameMapping($brand);
             $brand->delete();
 
             return $this->successResponse('test blacklist');

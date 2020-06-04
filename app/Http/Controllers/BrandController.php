@@ -73,7 +73,12 @@ class BrandController extends Controller
 
         $brand = $this->repository->create($request->all());
 
-        return $this->successResponse($brand, Response::HTTP_CREATED);
+        if ($brand)
+        {
+            $brandWithMappings = Brand::with(['nameMappings'])->findOrFail($brand->id);
+            return $this->successResponse($brandWithMappings, Response::HTTP_CREATED);
+        }
+        return $this->errorResponse('Something went wrong - brand not created!', Response::HTTP_CONFLICT);
     }
 
     public function update(Request $request, $id)
@@ -90,7 +95,8 @@ class BrandController extends Controller
 
         if ($brand)
         {
-            return $this->successResponse($brand);
+            $brandWithMappings = Brand::with(['nameMappings'])->findOrFail($brand->id);
+            return $this->successResponse($brandWithMappings);
         }
         return $this->errorResponse('Brand already exist!', Response::HTTP_CONFLICT);
     }
@@ -100,7 +106,7 @@ class BrandController extends Controller
         $brand = Brand::findOrFail($id);
         $this->mappingRepository->removeAllNameMapping($brand);
         $brand->delete();
-        return $this->successResponse($brand);
+        return $this->successResponse($brand->id);
     }
 
     public function blacklist($id)
@@ -117,7 +123,7 @@ class BrandController extends Controller
             $this->mappingRepository->removeAllNameMapping($brand);
             $brand->delete();
 
-            return $this->successResponse('test blacklist');
+            return $this->successResponse($brand);
         }
         return $this->errorResponse('Something went wrong', Response::HTTP_BAD_REQUEST);
     }
@@ -135,14 +141,16 @@ class BrandController extends Controller
 
             if ($newParentMapping)
             {
-                $brandMappings = BrandNameMapping::findByBrandId($brand->id);
+                $brandMappings = BrandNameMapping::where('brand_id', '=', $brand->id)->get();
                 foreach ($brandMappings as $mapping)
                 {
                     $mapping->brand_id = $parentId;
                     $mapping->update();
                 }
                 $brand->delete();
-                return $this->successResponse("Brand {$brand->name} successfully converted into mapping");
+
+                $parentBrandWithNewMappings = Brand::with(['nameMappings'])->findOrFail($parentId);
+                return $this->successResponse($parentBrandWithNewMappings);
             }
             return $this->errorResponse('Something went wrong', Response::HTTP_BAD_REQUEST);
         }

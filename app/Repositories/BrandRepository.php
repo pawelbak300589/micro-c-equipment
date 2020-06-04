@@ -42,7 +42,8 @@ class BrandRepository
             $brand->update($data);
             if ($brand)
             {
-                $this->modelNameMapRepo->refreshNameMapping($brand);
+//                $this->modelNameMapRepo->refreshNameMapping($brand);  // instead of refreshing (removing and creating new) mappings, lets create new (extend the list of mappings)
+                $this->modelNameMapRepo->createNameMapping($brand);
                 return $brand;
             }
         }

@@ -50,7 +50,8 @@ class BrandController extends Controller
 
     public function index()
     {
-        $brands = Brand::with(['nameMappings'])->get();
+        $brands = Brand::orderBy('name', 'ASC')->get();
+//        $brands = Brand::with(['nameMappings'])->get();
         if ($brands)
         {
             return $this->successResponse($brands);
@@ -60,7 +61,7 @@ class BrandController extends Controller
 
     public function show($id)
     {
-        return $this->successResponse(Brand::with(['nameMappings'])->findOrFail($id));
+        return $this->successResponse(Brand::findOrFail($id));
     }
 
     public function store(Request $request)
@@ -75,7 +76,7 @@ class BrandController extends Controller
 
         if ($brand)
         {
-            $brandWithMappings = Brand::with(['nameMappings'])->findOrFail($brand->id);
+            $brandWithMappings = Brand::findOrFail($brand->id);
             return $this->successResponse($brandWithMappings, Response::HTTP_CREATED);
         }
         return $this->errorResponse('Something went wrong - brand not created!', Response::HTTP_CONFLICT);
@@ -95,7 +96,7 @@ class BrandController extends Controller
 
         if ($brand)
         {
-            $brandWithMappings = Brand::with(['nameMappings'])->findOrFail($brand->id);
+            $brandWithMappings = Brand::findOrFail($brand->id);
             return $this->successResponse($brandWithMappings);
         }
         return $this->errorResponse('Brand already exist!', Response::HTTP_CONFLICT);
@@ -149,7 +150,7 @@ class BrandController extends Controller
                 }
                 $brand->delete();
 
-                $parentBrandWithNewMappings = Brand::with(['nameMappings'])->findOrFail($parentId);
+                $parentBrandWithNewMappings = Brand::findOrFail($parentId);
                 return $this->successResponse($parentBrandWithNewMappings);
             }
             return $this->errorResponse('Something went wrong', Response::HTTP_BAD_REQUEST);

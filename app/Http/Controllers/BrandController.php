@@ -69,8 +69,7 @@ class BrandController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'url' => 'required|max:255',
-            'img' => 'required|max:255'
+            'url' => 'required|max:255'
         ]);
 
         $brand = $this->repository->create($request->all());
@@ -87,8 +86,7 @@ class BrandController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'url' => 'required|max:255',
-            'img' => 'required|max:255'
+            'url' => 'required|max:255'
         ]);
 
         $brand = Brand::findOrFail($id);
@@ -167,7 +165,7 @@ class BrandController extends Controller
 //        $test = new RockRun();
 //        $test = new RockRunCategories();
 //        $test = new TrekkInn();
-//        $test = new AlpinTrek();
+        $test = new AlpinTrek();
 //        $test = new AlpinTrekCategories();
 //        $test = new RockRunGears();
 //        $test = new AlpinTrekGears();
@@ -177,9 +175,9 @@ class BrandController extends Controller
 //        $test = new CotswoldOutdoor();
 //        $test = new EllisBrigham();
 //        $test = new GoOutdoors();
-        $test = new BananaFingers();
-        dd($test->getData());
-//        dd($test->getData()[0]);
+//        $test = new BananaFingers();
+//        dd($test->getData());
+        dd($test->getData()[0]);
 
 //        $test = new BrandScraper();
 //        $test = new GearScraper();

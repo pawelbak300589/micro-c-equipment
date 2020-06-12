@@ -32,7 +32,6 @@ class TrekkInn extends WebsiteScraperAbstract
                 $data[$index]['name'] = $websiteNames[$index];
                 $data[$index]['url'] = $websiteUrls[$index];
                 $data[$index]['website_id'] = $this->websiteId;
-                $data[$index]['img'] = '/' . Str::kebab($websiteNames[$index]) . '.png';
             }
 
             return $data;

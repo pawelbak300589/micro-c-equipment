@@ -24,8 +24,8 @@ class BrandScraper extends ScraperAbstract
         parent::__construct();
         $this->repository = new BrandRepository(new Brand());
         $this->websites = [
-            WeighMyRack::class,
             AlpinTrek::class,
+            WeighMyRack::class,
             RockRun::class,
             TrekkInn::class,
             ClimbersShop::class,

@@ -3,17 +3,20 @@
 namespace App\Repositories;
 
 use App\Brand;
+use App\BrandImages;
 use App\BrandNameMapping;
 
 class BrandRepository
 {
     protected $model;
     protected $modelNameMapRepo;
+    protected $modelImagesRepo;
 
     public function __construct(Brand $model)
     {
         $this->model = $model;
         $this->modelNameMapRepo = new BrandNameMappingRepository(new BrandNameMapping());
+        $this->modelImagesRepo = new BrandImagesRepository(new BrandImages());
     }
 
     public function existByName(string $name)
@@ -28,6 +31,11 @@ class BrandRepository
             $brand = $this->model->create($data); // TODO: after creating new - create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
             if ($brand)
             {
+                if(array_key_exists('img', $data)) // Add brand img only if $data has 'img' key
+                {
+                    $this->modelImagesRepo->create($brand, $data['img']);
+                }
+
                 $this->modelNameMapRepo->createNameMapping($brand);
                 return $brand;
             }
@@ -48,5 +56,10 @@ class BrandRepository
             }
         }
         return false;
+    }
+
+    public function brandImages($brandId, $image)
+    {
+
     }
 }

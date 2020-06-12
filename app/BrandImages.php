@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Brand extends Model
+class BrandImages extends Model
 {
 
     /**
@@ -13,7 +13,7 @@ class Brand extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'url'
+        'brand_id', 'src', 'alt', 'main'
     ];
 
     /**
@@ -23,18 +23,8 @@ class Brand extends Model
      */
     protected $hidden = [];
 
-    public function nameMappings()
+    public function brand()
     {
-        return $this->hasMany(BrandNameMapping::class);
-    }
-
-    public function images()
-    {
-        return $this->hasMany(BrandImages::class);
-    }
-
-    public function gears()
-    {
-        return $this->hasMany(Gear::class);
+        return $this->belongsTo(Brand::class);
     }
 }

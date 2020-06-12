@@ -26,17 +26,26 @@ class AlpinTrek extends WebsiteScraperAbstract
             {
                 return $field->attr('href');
             });
+            $websiteImages = $node->filter('li.manufacturer-listitem a.img img')->each(function ($field)
+            {
+                return $field->attr('data-src');
+            });
 
             foreach ($websiteNames as $index => $name)
             {
                 $data[$index]['name'] = $websiteNames[$index];
                 $data[$index]['url'] = $websiteUrls[$index];
                 $data[$index]['website_id'] = $this->websiteId;
-                $data[$index]['img'] = '/' . Str::kebab($websiteNames[$index]) . '.png';
+                $data[$index]['img'] = $this->modifyImageUrl($websiteImages[$index]);
             }
 
             return $data;
         });
+    }
+
+    public function modifyImageUrl($imageUrl)
+    {
+        return str_replace(['80_60_90', '(1)', '(2)', '(3)', '(4)'], ['200_150_90', '', '', '', ''], $imageUrl);
     }
 
 }

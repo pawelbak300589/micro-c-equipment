@@ -10,6 +10,5 @@ $factory->define(Brand::class, function (Faker $faker)
     return [
         'name' => $faker->company,
         'url' => $faker->url,
-        'img' => $faker->url,
     ];
 });

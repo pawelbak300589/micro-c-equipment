@@ -30,7 +30,10 @@ $router->group(['prefix' => 'api'], function () use ($router)
     $router->post('brands/{id}/blacklist', ['uses' => 'BrandController@blacklist']);
     $router->post('brands/{id}/convert/{type}/{parentId}', ['uses' => 'BrandController@convert']);
 
-    $router->get('brands/{id}/mappings', ['uses' => 'BrandMappingsController@show']);
+    $router->get('brands/{brandId}/mappings', ['uses' => 'BrandMappingsController@show']);
+    $router->post('brands/{brandId}/mappings', ['uses' => 'BrandMappingsController@store']);
+    $router->patch('brands/{brandId}/mappings/{mappingId}', ['uses' => 'BrandMappingsController@update']);
+    $router->delete('brands/{brandId}/mappings/{mappingId}', ['uses' => 'BrandMappingsController@delete']);
 
     $router->get('gears', ['uses' => 'GearController@showAllGears']);
     $router->get('gears/{id}', ['uses' => 'GearController@showOneGear']);

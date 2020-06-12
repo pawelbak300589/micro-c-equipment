@@ -48,9 +48,10 @@ class BrandController extends Controller
         $this->mappingRepository = new BrandNameMappingRepository(new BrandNameMapping());
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $brands = Brand::orderBy('name', 'ASC')->get();
+        $perPage = $request->has('per_page') ? $request['per_page'] : 25;
+        $brands = Brand::orderBy('name', 'ASC')->paginate($perPage);
 //        $brands = Brand::with(['nameMappings'])->get();
         if ($brands)
         {
@@ -96,8 +97,7 @@ class BrandController extends Controller
 
         if ($brand)
         {
-            $brandWithMappings = Brand::findOrFail($brand->id);
-            return $this->successResponse($brandWithMappings);
+            return $this->successResponse($brand->fresh());
         }
         return $this->errorResponse('Brand already exist!', Response::HTTP_CONFLICT);
     }

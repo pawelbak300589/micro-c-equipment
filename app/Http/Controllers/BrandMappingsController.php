@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Blacklist;
 use App\Brand;
 use App\BrandNameMapping;
 use App\Repositories\BrandNameMappingRepository;
@@ -20,24 +19,19 @@ class BrandMappingsController extends Controller
      */
     protected $repository;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->repository = new BrandNameMappingRepository(new BrandNameMapping());
+        $this->repository = new BrandNameMappingRepository(Brand::findOrFail($request->brandId));
     }
 
-    public function index()
-    {
-        $mappings = BrandNameMapping::all();
-        if ($mappings)
-        {
-            return $this->successResponse($mappings);
-        }
-        return $this->successResponse('There are no mappings in database');
-    }
-
-    public function show($brandId)
+    public function index($brandId)
     {
         return $this->successResponse(BrandNameMapping::where('brand_id', '=', $brandId)->get());
+    }
+
+    public function show($brandId, $mappingId)
+    {
+        return $this->successResponse(BrandNameMapping::findOrFail($mappingId));
     }
 
     public function store(Request $request, $brandId)
@@ -75,7 +69,7 @@ class BrandMappingsController extends Controller
         {
             return $this->successResponse($brandMapping->fresh());
         }
-        return $this->errorResponse('Something went wrong - brand mapping not created!', Response::HTTP_CONFLICT);
+        return $this->errorResponse('Something went wrong - brand mapping not updated!', Response::HTTP_CONFLICT);
     }
 
     public function delete($brandId, $mappingId)

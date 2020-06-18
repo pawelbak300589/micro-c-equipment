@@ -42,10 +42,13 @@ class BrandController extends Controller
      */
     protected $mappingRepository;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->repository = new BrandRepository(new Brand());
-        $this->mappingRepository = new BrandNameMappingRepository(new BrandNameMapping());
+        if ($request->has('id'))
+        {
+            $this->mappingRepository = new BrandNameMappingRepository(Brand::findOrFail($request->id));
+        }
     }
 
     public function index(Request $request)
@@ -103,7 +106,7 @@ class BrandController extends Controller
     public function delete($id)
     {
         $brand = Brand::findOrFail($id);
-        $this->mappingRepository->removeAllNameMapping($brand);
+        $this->mappingRepository->removeAllNameMapping();
         $brand->delete();
         return $this->successResponse($brand->id);
     }
@@ -119,7 +122,7 @@ class BrandController extends Controller
 
         if ($newBlacklistEntry)
         {
-            $this->mappingRepository->removeAllNameMapping($brand);
+            $this->mappingRepository->removeAllNameMapping();
             $brand->delete();
 
             return $this->successResponse($brand);

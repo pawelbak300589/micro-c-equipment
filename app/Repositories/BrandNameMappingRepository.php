@@ -4,49 +4,52 @@
 namespace App\Repositories;
 
 
+use App\Brand;
 use App\BrandNameMapping;
 use Illuminate\Support\Str;
 
 class BrandNameMappingRepository
 {
+    protected $brand;
     protected $model;
 
-    public function __construct(BrandNameMapping $model)
+    public function __construct(Brand $brand)
     {
-        $this->model = $model;
+        $this->brand = $brand;
+        $this->model = new BrandNameMapping;
     }
 
-    public function existByName(string $name)
+    public static function existByName(string $name): bool
     {
-        return !empty($this->model->where('name', $name)->first()); // TODO: cache it
+        return !empty(BrandNameMapping::where('name', $name)->first());
     }
 
     public function create(array $data)
     {
-        if (!$this->existByName($data['name']))
+        if (!self::existByName($data['name']))
         {
             return $this->model->create($data); // TODO: after creating new create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
         }
         return false;
     }
 
-    public function createNameMapping($brand)
+    public function createNameMapping()
     {
-        foreach ($this->generateNameMapping($brand->name) as $mappedName)
+        foreach ($this->generateNameMapping($this->brand->name) as $mappedName)
         {
-            $this->create(['brand_id' => $brand->id, 'name' => $mappedName]); // TODO: after creating new create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
+            $this->create(['brand_id' => $this->brand->id, 'name' => $mappedName]); // TODO: after creating new create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
         }
     }
 
-    public function refreshNameMapping($brand)
+    public function refreshNameMapping()
     {
-        $this->removeAllNameMapping($brand);
-        $this->createNameMapping($brand);
+        $this->removeAllNameMapping();
+        $this->createNameMapping();
     }
 
-    public function removeAllNameMapping($brand)
+    public function removeAllNameMapping()
     {
-        $brandMappings = $this->model->where('brand_id', '=', $brand->id)->get();
+        $brandMappings = $this->model->where('brand_id', '=', $this->brand->id)->get();
         foreach ($brandMappings as $mapping)
         {
             $mapping->delete();

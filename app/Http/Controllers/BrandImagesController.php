@@ -53,7 +53,6 @@ class BrandImagesController extends Controller
         $this->validate($request, [
             'src' => 'required|max:255',
             'alt' => 'required|max:255',
-            'main' => 'required',
         ]);
 
         $brandImage = BrandImages::findOrFail($imageId);
@@ -62,7 +61,6 @@ class BrandImagesController extends Controller
             'brand_id' => $brandId,
             'src' => $request->src,
             'alt' => $request->alt,
-            'main' => $request->main,
         ]);
 
         if ($brandImage)
@@ -75,7 +73,24 @@ class BrandImagesController extends Controller
     public function delete($imageId)
     {
         $image = BrandImages::findOrFail($imageId);
+
+        if ($image->main === 1)
+        {
+            $firstImage = BrandImages::where('brand_id', '=', $image->brand_id)->first();
+            if ($firstImage)
+            {
+                $firstImage->main = 1;
+                $firstImage->update();
+            }
+        }
+
         $image->delete();
+        return $this->successResponse(BrandImages::where('brand_id', '=', $image->brand_id)->get());
+    }
+
+    public function main($imageId)
+    {
+        $image = $this->repository->setAsMainImage($imageId);
         return $this->successResponse($image->id);
     }
 }

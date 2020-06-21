@@ -16,6 +16,11 @@ class BrandImagesRepository
         $this->model = new BrandImages;
     }
 
+    public function count(): int
+    {
+        return BrandImages::where('brand_id', '=', $this->brand->id)->count();
+    }
+
     public static function exist(int $imageId): bool
     {
         return !empty(BrandImages::findOrFail($imageId));
@@ -35,13 +40,35 @@ class BrandImagesRepository
     {
         if (!$this->existBySrc($imageSrc))
         {
+            $imageAlt = $this->brand->name . ' logo ' . ($this->count() + 1);
             return $this->model->create([
                 'brand_id' => $this->brand->id,
                 'src' => $imageSrc,
-                'alt' => $this->brand->name,
+                'alt' => $imageAlt,
                 'main' => !$this->hasImages() ? 1 : 0,
             ]);
         }
         return false;
+    }
+
+    public function setAsMainImage($imageId)
+    {
+        $images = $this->model->where('brand_id', $this->brand->id)->get();
+        $mainImage = [];
+
+        foreach ($images as $image)
+        {
+            if ($image->id == $imageId)
+            {
+                $image->update(['main' => 1]);
+                $mainImage = $image;
+            }
+            else
+            {
+                $image->update(['main' => 0]);
+            }
+        }
+
+        return $mainImage;
     }
 }

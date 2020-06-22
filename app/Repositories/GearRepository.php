@@ -29,10 +29,16 @@ class GearRepository
             $gear = $this->model->create($data); // TODO: after creating new - create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
             if ($gear)
             {
-                if (array_key_exists('img', $data)) // Add brand img only if $data has 'img' key
+                if (array_key_exists('img', $data)) // Add gear img only if $data has 'img' key
                 {
-                    $brandImagesRepo = new GearImagesRepository($gear);
-                    $brandImagesRepo->create($data['img']);
+                    $gearImagesRepo = new GearImagesRepository($gear);
+                    $gearImagesRepo->create($data['img']);
+                }
+
+                if (array_key_exists('url', $data)) // Add gear url only if $data has 'url' key
+                {
+                    $gearUrlsRepo = new GearUrlsRepository($gear);
+                    $gearUrlsRepo->create($data['website_id'], $data['url']);
                 }
 
                 $gearNameMapRepo = new GearNameMappingRepository($gear);

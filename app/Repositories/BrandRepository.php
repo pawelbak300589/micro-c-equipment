@@ -31,6 +31,12 @@ class BrandRepository
                     $brandImagesRepo->create($data['img']);
                 }
 
+                if (array_key_exists('url', $data)) // Add brand url only if $data has 'url' key
+                {
+                    $brandUrlsRepo = new BrandUrlsRepository($brand);
+                    $brandUrlsRepo->create($data['website_id'], $data['url']);
+                }
+
                 $brandNameMapRepo = new BrandNameMappingRepository($brand);
                 $brandNameMapRepo->createNameMapping();
                 return $brand;

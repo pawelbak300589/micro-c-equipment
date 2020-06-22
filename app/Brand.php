@@ -13,7 +13,7 @@ class Brand extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'url'
+        'name'
     ];
 
     /**
@@ -31,6 +31,11 @@ class Brand extends Model
     public function images()
     {
         return $this->hasMany(BrandImages::class);
+    }
+
+    public function urls()
+    {
+        return $this->hasMany(BrandUrls::class);
     }
 
     public function gears()

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGearsTable extends Migration
+class CreateBrandUrlsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CreateGearsTable extends Migration
      */
     public function up()
     {
-        Schema::create('gears', function (Blueprint $table)
+        Schema::create('brand_urls', function (Blueprint $table)
         {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('website_id');
             $table->unsignedBigInteger('brand_id');
-            $table->string('name');
+            $table->string('url');
+            $table->boolean('main')->default(0);
             $table->timestamps();
 
-            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->foreign('website_id')->references('id')->on('websites');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
         });
     }
 
@@ -31,6 +34,6 @@ class CreateGearsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gears');
+        Schema::dropIfExists('brand_urls');
     }
 }

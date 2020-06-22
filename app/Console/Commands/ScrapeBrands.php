@@ -18,12 +18,14 @@
 
 namespace App\Console\Commands;
 
+use App\Scraper;
 use App\Services\Scrapers\Brands\AlpinTrek;
 use App\Services\Scrapers\Brands\ClimbersShop;
 use App\Services\Scrapers\Brands\RockRun;
 use App\Services\Scrapers\Brands\TrekkInn;
 use App\Services\Scrapers\Brands\WeighMyRack;
 use App\Services\Scrapers\BrandScraper;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class ScrapeBrands extends Command
@@ -40,7 +42,7 @@ class ScrapeBrands extends Command
      *
      * @var string
      */
-    protected $description = 'Scrape brands from website and save it to DB table';
+    protected $description = 'Scraper brands from website and save it to DB table';
 
     /**
      * Create a new command instance.
@@ -61,45 +63,73 @@ class ScrapeBrands extends Command
     {
         $scraper = new BrandScraper();
 
-        if ($this->option('fresh'))
+        try
         {
-            $this->info('cleaning up DB');
-            $this->call('migrate:refresh', ['--force' => true]);
-            $this->info('Seed DB');
-            $this->call('db:seed', ['--force' => true]);
-            $this->info('DB clean up DONE!');
-        }
-
-        if ($this->option('website'))
-        {
-            $websiteName = $this->option('website');
-            $this->info('Scraping brands from website: ' . $websiteName);
-            switch ($websiteName)
+            if ($this->option('fresh'))
             {
-                case 'AlpinTrek':
-                    $scraper->scrape(new AlpinTrek);
-                    break;
-                case 'WeighMyRack':
-                    $scraper->scrape(new WeighMyRack);
-                    break;
-                case 'RockRun':
-                    $scraper->scrape(new RockRun);
-                    break;
-                case 'TrekkInn':
-                    $scraper->scrape(new TrekkInn);
-                    break;
-                case 'ClimbersShop':
-                    $scraper->scrape(new ClimbersShop);
-                    break;
-                default:
-                    $this->error("There is no website with name '{$websiteName}' in Database.");
+                $this->info('cleaning up DB');
+                $this->call('migrate:refresh', ['--force' => true]);
+                $this->info('Seed DB');
+                $this->call('db:seed', ['--force' => true]);
+                $this->info('DB clean up DONE!');
             }
-        }
-        else
+
+            $newScraper = Scraper::create([
+                'type' => 'brands'
+            ]);
+
+            if ($this->option('website'))
+            {
+                $websiteName = $this->option('website');
+                $this->info('Scraping brands from website: ' . $websiteName . ' (' . Carbon::now()->toDateTimeString() . ')');
+
+                $newScraper->update([
+                    'website' => $websiteName ?? ''
+                ]);
+
+                switch ($websiteName)
+                {
+                    case 'AlpinTrek':
+                        $scraper->scrape(new AlpinTrek);
+                        break;
+                    case 'WeighMyRack':
+                        $scraper->scrape(new WeighMyRack);
+                        break;
+                    case 'RockRun':
+                        $scraper->scrape(new RockRun);
+                        break;
+                    case 'TrekkInn':
+                        $scraper->scrape(new TrekkInn);
+                        break;
+                    case 'ClimbersShop':
+                        $scraper->scrape(new ClimbersShop);
+                        break;
+                    default:
+                        $this->error("There is no website with name '{$websiteName}' in Database.");
+                }
+            }
+            else
+            {
+                $this->info('Scraping brands from all websites in DB (' . Carbon::now()->toDateTimeString() . ').');
+
+                $newScraper->update([
+                    'website' => 'All websites'
+                ]);
+
+                $scraper->scrapeAll();
+            }
+
+            $newScraper->update([
+                'ended_at' => Carbon::now()->toDateTimeString(),
+            ]);
+
+            $this->info('Scraping brands FINISHED! (' . Carbon::now()->toDateTimeString() . ')');
+        } catch (Exception $e)
         {
-            $this->info('Scraping brands from all websites in DB.');
-            $scraper->scrapeAll();
+            $newScraper->update([
+                'failed_at' => Carbon::now()->toDateTimeString(),
+                'errors' => $e->getMessage(),
+            ]);
         }
-        $this->info('Scraping brands FINISHED!');
     }
 }

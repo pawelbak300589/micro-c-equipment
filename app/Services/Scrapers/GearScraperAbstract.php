@@ -13,7 +13,7 @@ abstract class GearScraperAbstract implements GearScraperInterface
     }
 
     /**
-     * Scrape all data from all websites and save to DB
+     * Scraper all data from all websites and save to DB
      */
     public function scrapeAll()
     {

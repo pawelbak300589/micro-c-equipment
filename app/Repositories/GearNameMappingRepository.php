@@ -2,37 +2,55 @@
 
 namespace App\Repositories;
 
+use App\Gear;
 use App\GearNameMapping;
 use Illuminate\Support\Str;
 
 class GearNameMappingRepository
 {
+    protected $gear;
     protected $model;
 
-    public function __construct(GearNameMapping $model)
+    public function __construct(Gear $gear)
     {
-        $this->model = $model;
+        $this->gear = $gear;
+        $this->model = new GearNameMapping;
     }
 
-    public function existByName(string $name)
+    public static function existByName(string $name): bool
     {
-        return !empty($this->model->where('name', $name)->first()); // TODO: cache it
+        return !empty(GearNameMapping::where('name', $name)->first()); // TODO: cache it
     }
 
     public function create(array $data)
     {
-        if (!$this->existByName($data['name']))
+        if (!self::existByName($data['name']))
         {
             return $this->model->create($data); // TODO: after creating new create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
         }
         return false;
     }
 
-    public function createNameMapping($gear)
+    public function createNameMapping()
     {
-        foreach ($this->generateNameMapping($gear->name) as $mappedName)
+        foreach ($this->generateNameMapping($this->gear->name) as $mappedName)
         {
-            $this->create(['gear_id' => $gear->id, 'name' => $mappedName]); // TODO: after creating new create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
+            $this->create(['gear_id' => $this->gear->id, 'name' => $mappedName]); // TODO: after creating new create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
+        }
+    }
+
+    public function refreshNameMapping()
+    {
+        $this->removeAllNameMapping();
+        $this->createNameMapping();
+    }
+
+    public function removeAllNameMapping()
+    {
+        $gearMappings = $this->model->where('gear_id', '=', $this->gear->id)->get();
+        foreach ($gearMappings as $mapping)
+        {
+            $mapping->delete();
         }
     }
 

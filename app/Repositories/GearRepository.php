@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\BrandNameMapping;
 use App\Gear;
-use App\GearNameMapping;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -12,27 +11,32 @@ use Illuminate\Support\Str;
 class GearRepository
 {
     protected $model;
-    protected $modelNameMapRepo;
 
     public function __construct(Gear $model)
     {
         $this->model = $model;
-        $this->modelNameMapRepo = new GearNameMappingRepository(new GearNameMapping());
     }
 
-    public function existByName(string $name)
+    public static function existByName(string $name)
     {
-        return !empty($this->model->where('name', $name)->first()); // TODO: cache it
+        return !empty(Gear::where('name', $name)->first()); // TODO: cache it
     }
 
     public function create(array $data)
     {
-        if (!$this->existByName($data['name']) && !$this->modelNameMapRepo->existByName($data['name']))
+        if (!self::existByName($data['name']) && !GearNameMappingRepository::existByName($data['name']))
         {
             $gear = $this->model->create($data); // TODO: after creating new - create cache (or add value to cache key "Retrieve & Store" in docs) https://laravel.com/docs/6.x/cache
             if ($gear)
             {
-                $this->modelNameMapRepo->createNameMapping($gear);
+                if (array_key_exists('img', $data)) // Add brand img only if $data has 'img' key
+                {
+                    $brandImagesRepo = new GearImagesRepository($gear);
+                    $brandImagesRepo->create($data['img']);
+                }
+
+                $gearNameMapRepo = new GearNameMappingRepository($gear);
+                $gearNameMapRepo->createNameMapping();
                 return $gear;
             }
         }
@@ -57,6 +61,14 @@ class GearRepository
 
         foreach ($brandsMap as $brandMap)
         {
+            if (array_key_exists('brand', $data) && $brandMap['name'] === $data['brand'])
+            {
+                return [
+                    $brandMap['brand_id'],
+                    trim($data['name'])
+                ];
+            }
+
             if (strpos($data['name'], $brandMap['name'] . ' ') !== false)
             {
                 return [

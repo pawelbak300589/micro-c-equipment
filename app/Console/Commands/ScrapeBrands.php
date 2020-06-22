@@ -100,6 +100,6 @@ class ScrapeBrands extends Command
             $this->info('Scraping brands from all websites in DB.');
             $scraper->scrapeAll();
         }
-        $this->info('Scraping FINISHED!');
+        $this->info('Scraping brands FINISHED!');
     }
 }

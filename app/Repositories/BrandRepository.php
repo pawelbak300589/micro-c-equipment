@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Brand;
-use App\BrandNameMapping;
 
 class BrandRepository
 {

@@ -35,7 +35,13 @@ class AlpinTrek extends PaginatedWebsiteScraperAbstract
                 $productsInfos = $crawler->filter('ul#product-list li.product-item a.product-link div.product-infobox')->each(function ($field)
                 {
                     $infos['brand'] = $field->filter('div.manufacturer-title')->count() ? $field->filter('div.manufacturer-title')->text() : '';
-                    $infos['name'] = $field->filter('div.product-title')->count() ? $field->filter('div.product-title')->text() : '';
+                    $infos['name'] = '';
+                    if ($field->filter('div.product-title')->count())
+                    {
+                        $name = explode(' - ', $field->filter('div.product-title')->text(), 2);
+                        $infos['name'] = $name[0];
+                        $infos['category'] = $name[1] ?? '';
+                    }
                     return $infos;
                 });
 

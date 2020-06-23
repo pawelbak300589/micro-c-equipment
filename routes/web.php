@@ -43,6 +43,13 @@ $router->group(['prefix' => 'api'], function () use ($router)
     $router->delete('brands/{brandId}/images/{imageId}', ['uses' => 'BrandImagesController@delete']);
     $router->post('brands/{brandId}/images/{imageId}/main', ['uses' => 'BrandImagesController@main']);
 
+    $router->get('brands/{brandId}/urls', ['uses' => 'BrandUrlsController@index']);
+    $router->post('brands/{brandId}/urls', ['uses' => 'BrandUrlsController@store']);
+    $router->get('brands/{brandId}/urls/{urlId}', ['uses' => 'BrandUrlsController@show']);
+    $router->patch('brands/{brandId}/urls/{urlId}', ['uses' => 'BrandUrlsController@update']);
+    $router->delete('brands/{brandId}/urls/{urlId}', ['uses' => 'BrandUrlsController@delete']);
+    $router->post('brands/{brandId}/urls/{urlId}/main', ['uses' => 'BrandUrlsController@main']);
+
     $router->get('gears', ['uses' => 'GearController@showAllGears']);
     $router->get('gears/{id}', ['uses' => 'GearController@showOneGear']);
     $router->post('gears', ['uses' => 'GearController@store']);

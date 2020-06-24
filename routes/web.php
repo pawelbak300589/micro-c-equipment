@@ -20,6 +20,8 @@ $router->get('/', function () use ($router)
 //{
 $router->group(['prefix' => 'api'], function () use ($router)
 {
+    $router->get('websites', ['uses' => 'WebsiteController@index']);
+
     $router->get('brands/test', ['uses' => 'BrandController@test']);
 
     $router->get('brands', ['uses' => 'BrandController@index']);

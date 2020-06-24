@@ -40,7 +40,7 @@ class BrandUrlsController extends Controller
             'url' => 'required|max:255'
         ]);
 
-        $brandUrl = $this->repository->create($request->all());
+        $brandUrl = $this->repository->create($request->website_id, $request->url);
 
         if ($brandUrl)
         {
@@ -91,7 +91,7 @@ class BrandUrlsController extends Controller
 
     public function main($urlId)
     {
-        $url = $this->repository->setAsMainImage($urlId);
+        $url = $this->repository->setAsMainUrl($urlId);
         return $this->successResponse($url->id);
     }
 }

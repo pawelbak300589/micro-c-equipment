@@ -54,8 +54,25 @@ class BrandController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->has('per_page') ? $request['per_page'] : 25;
-        $brands = Brand::orderBy('name', 'ASC')->paginate($perPage);
-//        $brands = Brand::with(['nameMappings'])->get();
+        $requestSearchPhrases = $request->has('search_phrase') ? $request['search_phrase'] : '';
+        $requestSearchExact = $request->has('search_exact') ? (bool)$request['search_exact'] : false;
+
+        $searchPhrases = $requestSearchExact ? $requestSearchPhrases : preg_split('/\s+/', $requestSearchPhrases, -1, PREG_SPLIT_NO_EMPTY);
+        $brands = Brand::orderBy('name', 'ASC')->where(function ($q) use ($requestSearchExact, $searchPhrases)
+        {
+            if ($requestSearchExact)
+            {
+                $q->orWhere('name', (string)($searchPhrases));
+            }
+            else
+            {
+                foreach ($searchPhrases as $phrase)
+                {
+                    $q->orWhere('name', 'like', "%{$phrase}%");
+                }
+            }
+        })->paginate($perPage);
+
         if ($brands)
         {
             return $this->successResponse($brands);
@@ -160,6 +177,26 @@ class BrandController extends Controller
     public function test()
     {
         ini_set('max_execution_time', 1000);
+
+//        $brands = Brand::orderBy('name', 'ASC')->whereIn('name', $phrase)->get();
+
+        $phrase = '';
+        $searchValues = preg_split('/\s+/', $phrase, -1, PREG_SPLIT_NO_EMPTY);
+
+        $brands = Brand::orderBy('name', 'ASC')->where(function ($q) use ($searchValues)
+        {
+            foreach ($searchValues as $value)
+            {
+                $q->orWhere('name', 'like', "%{$value}%");
+            }
+        })->get();
+
+        echo '<pre>';
+        foreach ($brands as $brand)
+        {
+            var_dump($brand->name);
+        }
+        dd($brands);
 
 //        $test = new WeighMyRack();
 //        $test = new ClimbersShop();
